@@ -394,9 +394,15 @@ async function seed() {
 
   let admin = await User.findOne({ email: adminEmail }).select('+password');
   if (admin) {
+    // Keep the admin account in sync with .env on every seed run — not
+    // just the role — so changing ADMIN_PASSWORD and re-running `npm run
+    // seed` reliably updates the login credentials instead of silently
+    // leaving the old password hash in place.
+    admin.name = adminName;
     admin.role = 'admin';
+    admin.password = adminPassword;
     await admin.save();
-    console.log(`Existing user promoted to admin: ${adminEmail}`);
+    console.log(`Existing user promoted to admin and password synced: ${adminEmail}`);
   } else {
     admin = await User.create({
       name: adminName,
