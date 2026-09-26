@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 720" fill="none">
+  <defs>
+    <linearGradient id="sigGlass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3a3020" stop-opacity="0.4"/>
+      <stop offset="50%" stop-color="#241d12" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#0c0906" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="sigLiquid" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#a97c34"/>
+      <stop offset="50%" stop-color="#c9a96e"/>
+      <stop offset="100%" stop-color="#f4e2b8"/>
+    </linearGradient>
+    <linearGradient id="sigCap" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f4e2b8"/>
+      <stop offset="40%" stop-color="#d6b77c"/>
+      <stop offset="75%" stop-color="#8a6c3d"/>
+      <stop offset="100%" stop-color="#e8c98a"/>
+    </linearGradient>
+    <linearGradient id="sigHighlight" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="sigGlow" cx="50%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#d6b77c" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#d6b77c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <ellipse cx="210" cy="360" rx="170" ry="230" fill="url(#sigGlow)"/>
+
+  <!-- cap: classic dome -->
+  <path d="M160 50 h100 v18 a50 34 0 0 1 -50 34 a50 34 0 0 1 -50 -34 z" fill="url(#sigCap)" stroke="#8a6c3d" stroke-width="2"/>
+  <rect x="160" y="48" width="100" height="16" rx="4" fill="url(#sigCap)" stroke="#8a6c3d" stroke-width="2"/>
+
+  <!-- neck -->
+  <path d="M190 100 h40 v40 h-40 z" fill="url(#sigGlass)" stroke="#d6b77c" stroke-opacity="0.4" stroke-width="1.5"/>
+
+  <!-- body: classic rectangular flacon, faceted shoulders -->
+  <path d="M130 140
+           h160
+           l14 40
+           v56
+           h-188
+           v-56
+           z"
+        fill="url(#sigGlass)" stroke="#d6b77c" stroke-opacity="0.55" stroke-width="2"/>
+  <path d="M96 236 h228 v300 a40 40 0 0 1 -40 40 h-148 a40 40 0 0 1 -40 -40 z"
+        fill="url(#sigGlass)" stroke="#d6b77c" stroke-opacity="0.55" stroke-width="2"/>
+
+  <!-- liquid fill -->
+  <path d="M96 300 h228 v236 a40 40 0 0 1 -40 40 h-148 a40 40 0 0 1 -40 -40 z" fill="url(#sigLiquid)" opacity="0.9"/>
+  <path d="M106 236 h208 v40 h-208 z" fill="url(#sigLiquid)" opacity="0.55"/>
+
+  <!-- facet lines -->
+  <line x1="160" y1="140" x2="146" y2="236" stroke="#ffffff" stroke-opacity="0.18" stroke-width="2"/>
+  <line x1="260" y1="140" x2="274" y2="236" stroke="#ffffff" stroke-opacity="0.12" stroke-width="2"/>
+  <line x1="96" y1="380" x2="324" y2="380" stroke="#ffffff" stroke-opacity="0.1" stroke-width="1"/>
+
+  <!-- sheen -->
+  <rect x="96" y="330" width="228" height="16" fill="url(#sigHighlight)" opacity="0.55"/>
+  <path d="M130 260 v276" stroke="#ffffff" stroke-opacity="0.3" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- label -->
+  <rect x="148" y="420" width="124" height="76" rx="4" fill="#f8f4ec" opacity="0.95"/>
+  <text x="210" y="450" text-anchor="middle" font-family="Playfair Display, serif" font-size="17" fill="#3a2c25" letter-spacing="2">NB</text>
+  <text x="210" y="472" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#3a2c25" letter-spacing="3">SIGNATURE</text>
+</svg>

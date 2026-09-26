@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100" fill="none">
+  <defs>
+    <linearGradient id="acBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#07111F"/>
+      <stop offset="100%" stop-color="#0D1B2E"/>
+    </linearGradient>
+    <radialGradient id="acGlow" cx="50%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#D6B77C" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#D6B77C" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="acLiquid" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#7a5c34"/>
+      <stop offset="60%" stop-color="#c9a96e"/>
+      <stop offset="100%" stop-color="#f4e2b8"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1100" fill="url(#acBg)"/>
+  <rect width="900" height="1100" fill="url(#acGlow)"/>
+  <g transform="translate(300,380)">
+    <path d="M140 40 h140 c10 0 16 8 16 20 v34 c26 18 40 52 40 96 v230 c0 34 -26 60 -60 60 h-152 c-34 0 -60 -26 -60 -60 v-230 c0 -44 14 -78 40 -96 v-34 c0 -12 6 -20 16 -20 z"
+      fill="#0D1B2E" stroke="#D6B77C" stroke-opacity="0.5" stroke-width="2"/>
+    <path d="M108 372 c0 -44 14 -78 40 -96 v-16 h124 v16 c26 18 40 52 40 96 v230 c0 34 -26 60 -60 60 h-84 c-34 0 -60 -26 -60 -60 z" fill="url(#acLiquid)" opacity="0.85"/>
+  </g>
+  <g opacity="0.5" stroke="#D6B77C" stroke-width="1">
+    <circle cx="200" cy="200" r="90" fill="none"/>
+    <circle cx="720" cy="850" r="120" fill="none"/>
+  </g>
+  <circle cx="150" cy="900" r="4" fill="#F2E8DA" opacity="0.6"/>
+  <circle cx="760" cy="220" r="3" fill="#D8B09A" opacity="0.6"/>
+</svg>

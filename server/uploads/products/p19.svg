@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" width="400" height="520">
+  <defs>
+    <radialGradient id="glow-p19" cx="50%" cy="55%" r="55%">
+      <stop offset="0%" stop-color="#D6B77C" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#D6B77C" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="liquid-p19" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#BFE8DE"/>
+      <stop offset="100%" stop-color="#D8C27A"/>
+    </linearGradient>
+    <linearGradient id="cap-p19" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D6B77C"/>
+      <stop offset="100%" stop-color="#C9A96E"/>
+    </linearGradient>
+    <linearGradient id="glass-p19" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8F4EC" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#F8F4EC" stop-opacity="0.06"/>
+    </linearGradient>
+    <clipPath id="clip-p19">
+      <path d="M156,195 L244,195 Q260,195 260,211 L260,444 Q260,460 244,460 L156,460 Q140,460 140,444 L140,211 Q140,195 156,195 Z"/>
+    </clipPath>
+  </defs>
+
+  <ellipse cx="200" cy="475" rx="120" ry="18" fill="#07111F" opacity="0.35"/>
+  <ellipse cx="200" cy="300" rx="180" ry="220" fill="url(#glow-p19)"/>
+
+  <rect x="180" y="150" width="40" height="45" fill="#0D1B2E" opacity="0.85"/>
+  <rect x="163" y="95" width="74" height="55" rx="12" fill="url(#cap-p19)" stroke="#2a1f14" stroke-width="1" stroke-opacity="0.25"/>
+
+  <path d="M156,195 L244,195 Q260,195 260,211 L260,444 Q260,460 244,460 L156,460 Q140,460 140,444 L140,211 Q140,195 156,195 Z" fill="#0D1B2E" fill-opacity="0.18" stroke="#D6B77C" stroke-width="1.5" stroke-opacity="0.55"/>
+
+  <g clip-path="url(#clip-p19)">
+    <rect x="120" y="281" width="180" height="189" fill="url(#liquid-p19)"/>
+    <rect x="120" y="195" width="180" height="290" fill="url(#glass-p19)"/>
+    <rect x="150" y="210" width="14" height="230" fill="#FFFFFF" opacity="0.20"/>
+    <rect x="168" y="210" width="5" height="230" fill="#FFFFFF" opacity="0.12"/>
+  </g>
+
+  <rect x="163" y="325" width="74" height="46" rx="4" fill="#F8F4EC" fill-opacity="0.88" stroke="#D6B77C" stroke-width="1"/>
+  <text x="200" y="349" font-family="Georgia, 'Times New Roman', serif" font-size="15" letter-spacing="2" text-anchor="middle" fill="#C9A96E">N.B.</text>
+  <text x="200" y="362" font-family="Georgia, 'Times New Roman', serif" font-size="7" letter-spacing="1.5" text-anchor="middle" fill="#C9A96E" opacity="0.85">FRESH</text>
+</svg>

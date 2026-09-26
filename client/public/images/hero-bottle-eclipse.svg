@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 720" fill="none">
+  <defs>
+    <linearGradient id="eclipseGlass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3a0f18" stop-opacity="0.55"/>
+      <stop offset="45%" stop-color="#1a0a10" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#0c0508" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="eclipseLiquid" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#7a1230"/>
+      <stop offset="45%" stop-color="#9c2b3a"/>
+      <stop offset="75%" stop-color="#c9873f"/>
+      <stop offset="100%" stop-color="#e8c98a"/>
+    </linearGradient>
+    <linearGradient id="eclipseCap" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f4e2b8"/>
+      <stop offset="35%" stop-color="#c9a96e"/>
+      <stop offset="70%" stop-color="#8a6c3d"/>
+      <stop offset="100%" stop-color="#d6b77c"/>
+    </linearGradient>
+    <linearGradient id="eclipseHighlight" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="eclipseGlow" cx="50%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#d6737a" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#d6737a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <ellipse cx="210" cy="360" rx="170" ry="230" fill="url(#eclipseGlow)"/>
+
+  <!-- cap -->
+  <path d="M170 60 h80 a14 14 0 0 1 14 14 v70 a14 14 0 0 1 -14 14 h-80 a14 14 0 0 1 -14 -14 v-70 a14 14 0 0 1 14 -14 z" fill="url(#eclipseCap)" stroke="#8a6c3d" stroke-width="2"/>
+  <rect x="168" y="80" width="84" height="8" fill="#0000001a"/>
+  <rect x="168" y="100" width="84" height="8" fill="#0000001a"/>
+  <rect x="168" y="120" width="84" height="8" fill="#0000001a"/>
+
+  <!-- neck -->
+  <path d="M185 158 h50 v34 h-50 z" fill="url(#eclipseGlass)" stroke="#d6b77c" stroke-opacity="0.4" stroke-width="1.5"/>
+
+  <!-- body: tall rounded-shoulder flacon -->
+  <path d="M140 192
+           h140
+           c10 0 16 8 16 20
+           v34
+           c26 18 40 52 40 96
+           v230
+           c0 34 -26 60 -60 60
+           h-152
+           c-34 0 -60 -26 -60 -60
+           v-230
+           c0 -44 14 -78 40 -96
+           v-34
+           c0 -12 6 -20 16 -20 z"
+        fill="url(#eclipseGlass)" stroke="#d6b77c" stroke-opacity="0.55" stroke-width="2"/>
+
+  <!-- liquid fill -->
+  <path d="M108 372
+           c0 -44 14 -78 40 -96
+           v-16
+           h124
+           v16
+           c26 18 40 52 40 96
+           v230
+           c0 34 -26 60 -60 60
+           h-84
+           c-34 0 -60 -26 -60 -60
+           z"
+        fill="url(#eclipseLiquid)" opacity="0.88"/>
+
+  <!-- horizontal sheen -->
+  <rect x="90" y="330" width="240" height="14" fill="url(#eclipseHighlight)" opacity="0.5"/>
+
+  <!-- glass vertical highlight -->
+  <path d="M150 210 c-18 22 -26 50 -26 82 v210" stroke="#ffffff" stroke-opacity="0.35" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path d="M300 260 v250" stroke="#ffffff" stroke-opacity="0.12" stroke-width="10" stroke-linecap="round" fill="none"/>
+
+  <!-- label -->
+  <rect x="150" y="470" width="120" height="70" rx="4" fill="#f8f4ec" opacity="0.92"/>
+  <text x="210" y="497" text-anchor="middle" font-family="Playfair Display, serif" font-size="15" fill="#3a2c25" letter-spacing="2">NB</text>
+  <text x="210" y="518" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" fill="#3a2c25" letter-spacing="3">ECLIPSE</text>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <defs>
+    <linearGradient id="phBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E4D5C3"/>
+      <stop offset="100%" stop-color="#F2E8DA"/>
+    </linearGradient>
+    <linearGradient id="phGlass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0.35"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#phBg)"/>
+  <path d="M170 100h60v22h-60z" fill="url(#phGlass)" stroke="#C9A96E" stroke-width="2"/>
+  <path d="M155 130h90a12 12 0 0 1 12 12v130a30 30 0 0 1-30 30h-54a30 30 0 0 1-30-30v-130a12 12 0 0 1 12-12z" fill="url(#phGlass)" stroke="#C9A96E" stroke-width="2"/>
+  <rect x="160" y="220" width="80" height="46" rx="4" fill="#F8F4EC" opacity="0.85"/>
+  <text x="200" y="248" text-anchor="middle" font-family="Playfair Display, serif" font-size="14" fill="#3A2C25">NB</text>
+</svg>
