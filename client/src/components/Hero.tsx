@@ -20,9 +20,9 @@ const SLIDES: Slide[] = [
     headline: 'Eclipsed in Mystery, Radiant in Presence.',
     tagline: 'Unveil the essence of mystery and radiance.',
     bottle: '/images/hero-bottle-eclipse.svg',
-    glow: 'rgba(156,43,58,0.45)',
-    particleColor: '#D6737A',
-    splashFilter: 'hue-rotate(-18deg) saturate(1.25)',
+    glow: 'rgba(214,183,124,0.4)',
+    particleColor: '#D6B77C',
+    splashFilter: 'none',
   },
   {
     key: 'signature',
@@ -201,26 +201,37 @@ export default function Hero() {
         </motion.div>
 
         {/* visual */}
-        <div className="order-1 lg:order-2 relative h-[320px] sm:h-[420px] lg:h-[560px] flex items-center justify-center">
+        <div className="order-1 lg:order-2 relative h-[360px] sm:h-[460px] lg:h-[600px] flex items-end justify-center pb-4 sm:pb-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={slide.key}
-              className="absolute inset-0 flex items-center justify-center"
+              className="absolute inset-0 flex items-end justify-center"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             >
-              {/* splash */}
+              {/* ribbon / liquid splash, flowing from the bottle's neck */}
               <motion.img
                 src={index % 2 === 0 ? '/images/liquid-splash-1.svg' : '/images/liquid-splash-2.svg'}
                 alt=""
                 aria-hidden="true"
-                className="absolute w-[130%] max-w-none sm:w-[110%] lg:w-[120%] opacity-90 animate-drift"
+                className="absolute w-[150%] max-w-none sm:w-[130%] lg:w-[135%] top-[2%] sm:top-0 opacity-90 animate-drift"
                 style={{ filter: slide.splashFilter }}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 0.9, scale: 1 }}
                 transition={{ duration: 1.1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              />
+
+              {/* rose-gold pedestal the bottle rests on */}
+              <motion.img
+                src="/images/hero-pedestal.svg"
+                alt=""
+                aria-hidden="true"
+                className="absolute bottom-0 w-[78%] sm:w-[64%] lg:w-[58%]"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
               />
 
               <Particles color={slide.particleColor} count={reducedMotion ? 0 : isTouch ? 7 : 12} />
@@ -229,7 +240,7 @@ export default function Hero() {
               <motion.img
                 src={slide.bottle}
                 alt={`NB Classic Scents ${slide.collection} collection perfume bottle`}
-                className="relative h-[85%] sm:h-[90%] w-auto drop-shadow-[0_30px_60px_rgba(0,0,0,0.55)]"
+                className="relative z-10 h-[78%] sm:h-[82%] w-auto mb-[6%] sm:mb-[7%] drop-shadow-[0_30px_60px_rgba(0,0,0,0.55)]"
                 style={{
                   transform: `perspective(1200px) rotateY(${tilt.x}deg) rotateX(${tilt.y}deg)`,
                   transition: 'transform 0.4s cubic-bezier(0.16,1,0.3,1)',

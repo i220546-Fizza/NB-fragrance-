@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 720" fill="none">
   <defs>
     <linearGradient id="eclipseGlass" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#3a0f18" stop-opacity="0.55"/>
-      <stop offset="45%" stop-color="#1a0a10" stop-opacity="0.75"/>
-      <stop offset="100%" stop-color="#0c0508" stop-opacity="0.9"/>
+      <stop offset="0%" stop-color="#1c3a6e" stop-opacity="0.65"/>
+      <stop offset="45%" stop-color="#122748" stop-opacity="0.82"/>
+      <stop offset="100%" stop-color="#08111f" stop-opacity="0.94"/>
     </linearGradient>
     <linearGradient id="eclipseLiquid" x1="0" y1="1" x2="0" y2="0">
-      <stop offset="0%" stop-color="#7a1230"/>
-      <stop offset="45%" stop-color="#9c2b3a"/>
-      <stop offset="75%" stop-color="#c9873f"/>
-      <stop offset="100%" stop-color="#e8c98a"/>
+      <stop offset="0%" stop-color="#122748"/>
+      <stop offset="45%" stop-color="#1e4a8c"/>
+      <stop offset="75%" stop-color="#2f6fc4"/>
+      <stop offset="100%" stop-color="#7fb2e8"/>
     </linearGradient>
     <linearGradient id="eclipseCap" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#f4e2b8"/>
@@ -23,8 +23,8 @@
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </linearGradient>
     <radialGradient id="eclipseGlow" cx="50%" cy="35%" r="60%">
-      <stop offset="0%" stop-color="#d6737a" stop-opacity="0.35"/>
-      <stop offset="100%" stop-color="#d6737a" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#D6B77C" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#D6B77C" stop-opacity="0"/>
     </radialGradient>
   </defs>
 

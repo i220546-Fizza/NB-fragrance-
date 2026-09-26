@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" fill="none">
+  <defs>
+    <radialGradient id="pedGlow" cx="50%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#D6B77C" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#D6B77C" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pedRim" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7a5a2e"/>
+      <stop offset="12%" stop-color="#e8c98a"/>
+      <stop offset="28%" stop-color="#c9a96e"/>
+      <stop offset="50%" stop-color="#f4e2b8"/>
+      <stop offset="72%" stop-color="#c9a96e"/>
+      <stop offset="88%" stop-color="#e8c98a"/>
+      <stop offset="100%" stop-color="#7a5a2e"/>
+    </linearGradient>
+    <linearGradient id="pedTop" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8a6c3d"/>
+      <stop offset="15%" stop-color="#f4e2b8"/>
+      <stop offset="35%" stop-color="#d6b77c"/>
+      <stop offset="50%" stop-color="#fbeecb"/>
+      <stop offset="65%" stop-color="#d6b77c"/>
+      <stop offset="85%" stop-color="#f4e2b8"/>
+      <stop offset="100%" stop-color="#8a6c3d"/>
+    </linearGradient>
+    <linearGradient id="pedSide" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c9a96e"/>
+      <stop offset="100%" stop-color="#5c451f"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse cx="450" cy="190" rx="380" ry="90" fill="url(#pedGlow)"/>
+
+  <!-- cylinder side -->
+  <path d="M120 150 v40 a330 62 0 0 0 660 0 v-40 z" fill="url(#pedSide)"/>
+  <!-- lower rim -->
+  <ellipse cx="450" cy="190" rx="330" ry="62" fill="url(#pedRim)"/>
+  <ellipse cx="450" cy="184" rx="330" ry="58" fill="#1c130a" opacity="0.18"/>
+  <!-- top disc -->
+  <ellipse cx="450" cy="150" rx="330" ry="62" fill="url(#pedTop)"/>
+  <ellipse cx="450" cy="150" rx="272" ry="48" fill="none" stroke="#5c451f" stroke-opacity="0.35" stroke-width="2"/>
+  <ellipse cx="450" cy="146" rx="330" ry="60" fill="#ffffff" opacity="0.08"/>
+</svg>

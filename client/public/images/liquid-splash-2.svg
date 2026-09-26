@@ -1,26 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 900" fill="none">
   <defs>
-    <linearGradient id="splash2a" x1="1" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.5"/>
-      <stop offset="55%" stop-color="#D6B77C" stop-opacity="0.24"/>
-      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    <linearGradient id="rib2Main" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f4e2b8"/>
+      <stop offset="30%" stop-color="#D6B77C"/>
+      <stop offset="60%" stop-color="#D8B09A"/>
+      <stop offset="100%" stop-color="#a97c5a"/>
     </linearGradient>
-    <radialGradient id="splash2b" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#F8F4EC" stop-opacity="0.45"/>
-      <stop offset="100%" stop-color="#F8F4EC" stop-opacity="0"/>
+    <linearGradient id="rib2Sheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="rib2Soft" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F2E8DA" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#F2E8DA" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <path d="M840 380
-           C 720 200, 500 140, 360 240
-           C 220 336, 240 480, 100 520
-           C 220 600, 360 520, 460 600
-           C 560 680, 600 780, 740 720
-           C 840 678, 820 520, 840 380 Z"
-        fill="url(#splash2a)"/>
-  <path d="M700 420 C 620 320, 480 300, 400 360 C 310 428, 320 520, 220 560
-           C 320 610, 400 560, 470 610 C 540 660, 570 720, 660 680 C 720 654, 700 520, 700 420 Z"
-        fill="url(#splash2b)" opacity="0.65"/>
-  <circle cx="260" cy="300" r="8" fill="#D6B77C" opacity="0.55"/>
-  <circle cx="200" cy="420" r="5" fill="#F2E8DA" opacity="0.65"/>
-  <circle cx="640" cy="240" r="6" fill="#D8B09A" opacity="0.5"/>
+
+  <ellipse cx="500" cy="440" rx="430" ry="360" fill="url(#rib2Soft)"/>
+
+  <!-- right wing (mirrored primary flow) -->
+  <path d="M530 430
+           C 640 380, 730 260, 850 250
+           C 940 244, 970 300, 930 340
+           C 870 396, 780 380, 710 430
+           C 650 474, 620 520, 540 500
+           C 500 490, 500 452, 530 430 Z"
+        fill="url(#rib2Main)" opacity="0.94"/>
+  <path d="M850 250 C 780 262, 700 330, 620 400" stroke="url(#rib2Sheen)" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.8"/>
+
+  <!-- left wing -->
+  <path d="M460 440
+           C 340 400, 240 470, 140 460
+           C 70 454, 50 390, 100 356
+           C 160 316, 250 350, 310 320
+           C 370 290, 390 250, 460 270
+           C 500 282, 500 400, 460 440 Z"
+        fill="url(#rib2Main)" opacity="0.9"/>
+  <path d="M140 460 C 220 440, 300 400, 380 350" stroke="url(#rib2Sheen)" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.65"/>
+
+  <ellipse cx="500" cy="440" rx="46" ry="30" fill="url(#rib2Main)"/>
+  <ellipse cx="500" cy="432" rx="46" ry="16" fill="#ffffff" opacity="0.25"/>
+
+  <circle cx="870" cy="300" r="8" fill="#D6B77C" opacity="0.7"/>
+  <circle cx="910" cy="360" r="5" fill="#F2E8DA" opacity="0.75"/>
+  <circle cx="100" cy="330" r="6" fill="#D8B09A" opacity="0.65"/>
+  <circle cx="60" cy="410" r="4" fill="#F2E8DA" opacity="0.7"/>
+  <circle cx="580" cy="700" r="5" fill="#D6B77C" opacity="0.6"/>
+  <circle cx="380" cy="230" r="4" fill="#F2E8DA" opacity="0.6"/>
 </svg>
