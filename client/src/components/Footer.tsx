@@ -1,5 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from '../utils/social';
+
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className={className} aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
 
 export default function Footer() {
   return (
@@ -31,20 +42,22 @@ export default function Footer() {
           </ul>
         </div>
         <div>
-          <h4 className="text-ivory text-xs tracking-[0.2em] uppercase mb-4">Follow</h4>
-          <div className="flex gap-3">
-            {['Instagram', 'Facebook', 'Pinterest'].map((s) => (
-              <a
-                key={s}
-                href="#"
-                onClick={(e) => e.preventDefault()}
-                aria-label={s}
-                className="h-9 w-9 rounded-full border border-champagne/30 flex items-center justify-center hover:border-champagne hover:text-champagne transition-colors"
-              >
-                <span className="text-[10px]">{s[0]}</span>
-              </a>
-            ))}
-          </div>
+          <h4 className="text-ivory text-xs tracking-[0.2em] uppercase mb-4">Follow Us</h4>
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`NB Classic Scents on Instagram, ${INSTAGRAM_HANDLE}`}
+            className="inline-flex items-center gap-2.5 group"
+          >
+            <span className="h-9 w-9 shrink-0 rounded-full border border-champagne/30 flex items-center justify-center text-ivory/70 group-hover:border-champagne group-hover:text-champagne transition-colors">
+              <InstagramIcon className="h-4 w-4" />
+            </span>
+            <span className="text-sm text-ivory/70 group-hover:text-champagne transition-colors">
+              Instagram
+              <span className="block text-xs text-ivory/45 group-hover:text-champagne/80">{INSTAGRAM_HANDLE}</span>
+            </span>
+          </a>
         </div>
       </div>
       <div className="border-t border-white/10">

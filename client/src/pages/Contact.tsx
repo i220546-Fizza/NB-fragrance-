@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useToast } from '../components/ToastHost';
 import { usePageMeta } from '../utils/usePageMeta';
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from '../utils/social';
 
 export default function Contact() {
   usePageMeta('Contact Us', 'Get in touch with the NB Classic Scents team.');
@@ -68,6 +69,23 @@ export default function Contact() {
             <p className="text-xs uppercase tracking-wide text-cocoa/50 mb-1">Studio</p>
             <p className="text-sm text-cocoa">Lahore, Pakistan</p>
           </div>
+        </div>
+
+        <div className="text-center mt-12 pt-10 border-t border-cocoa/10">
+          <p className="text-xs uppercase tracking-wide text-cocoa/50 mb-2">Follow NB Classic Scents</p>
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm text-cocoa hover:text-champagne transition-colors"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-4 w-4" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" />
+            </svg>
+            Instagram: {INSTAGRAM_HANDLE}
+          </a>
         </div>
       </div>
     </div>
