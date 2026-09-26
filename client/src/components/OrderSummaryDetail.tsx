@@ -77,8 +77,8 @@ export default function OrderSummaryDetail({ order }: { order: Order }) {
           <span>{formatCurrency(order.itemsPrice)}</span>
         </div>
         <div className="flex justify-between text-cocoa/70">
-          <span>Shipping</span>
-          <span>{order.shippingPrice === 0 ? 'Free' : formatCurrency(order.shippingPrice)}</span>
+          <span>Delivery Charge</span>
+          <span>{formatCurrency(order.deliveryCharge)}</span>
         </div>
         <div className="flex justify-between font-medium text-cocoa text-base pt-2 border-t border-cocoa/10">
           <span>Total</span>

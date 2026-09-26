@@ -3,8 +3,10 @@ const asyncHandler = require('express-async-handler');
 const Order = require('../models/Order');
 const Product = require('../models/Product');
 
-const FREE_SHIPPING_THRESHOLD = 15000;
-const STANDARD_SHIPPING_FEE = 500;
+// Flat delivery charge applied to every order, with no exceptions —
+// not by subtotal, quantity, location, customer, or promotion. This is
+// the single source of truth; the client can never override it.
+const DELIVERY_CHARGE = 200;
 
 const ORDER_STATUSES = ['Pending', 'Confirmed', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
 
@@ -70,8 +72,11 @@ const createOrder = asyncHandler(async (req, res) => {
     await product.save();
   }
 
-  const shippingPrice = itemsPrice > FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_FEE;
-  const totalPrice = itemsPrice + shippingPrice;
+  // Delivery is always Rs. 200 — fixed server-side, ignoring anything the
+  // client sends, and never reduced to 0 for any order value, quantity,
+  // customer, or promotion.
+  const deliveryCharge = DELIVERY_CHARGE;
+  const totalPrice = itemsPrice + deliveryCharge;
 
   const order = await Order.create({
     user: req.user ? req.user._id : undefined,
@@ -81,7 +86,7 @@ const createOrder = asyncHandler(async (req, res) => {
     notes: notes || '',
     paymentMethod: paymentMethod || 'Cash on Delivery',
     itemsPrice,
-    shippingPrice,
+    deliveryCharge,
     totalPrice,
     status: 'Pending',
   });

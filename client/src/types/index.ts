@@ -95,7 +95,8 @@ export interface Order {
   notes?: string;
   paymentMethod: string;
   itemsPrice: number;
-  shippingPrice: number;
+  /** Flat delivery fee, always Rs. 200 — never free, never conditional. */
+  deliveryCharge: number;
   totalPrice: number;
   status: OrderStatus;
   createdAt: string;

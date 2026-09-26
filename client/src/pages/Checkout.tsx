@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { useCart, FREE_SHIPPING_THRESHOLD } from '../context/CartContext';
+import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { orderService } from '../services/orderService';
 import { getApiErrorMessage } from '../services/api';
@@ -34,7 +34,7 @@ function validate(form: FormState) {
 
 export default function Checkout() {
   usePageMeta('Checkout', 'Complete your NB Classic Scents order with Cash on Delivery.');
-  const { items, subtotal, shippingEstimate, total, clearCart } = useCart();
+  const { items, subtotal, deliveryCharge, total, clearCart } = useCart();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState<FormState>({
@@ -179,12 +179,9 @@ export default function Checkout() {
                 <span>{formatCurrency(subtotal)}</span>
               </div>
               <div className="flex justify-between text-cocoa/70">
-                <span>Shipping</span>
-                <span>{shippingEstimate === 0 ? 'Free' : formatCurrency(shippingEstimate)}</span>
+                <span>Delivery Charges</span>
+                <span>{formatCurrency(deliveryCharge)}</span>
               </div>
-              {shippingEstimate > 0 && (
-                <p className="text-[11px] text-cocoa/45">Free shipping on orders over {formatCurrency(FREE_SHIPPING_THRESHOLD)}.</p>
-              )}
               <div className="flex justify-between font-medium text-cocoa text-base pt-2 border-t border-cocoa/10">
                 <span>Total</span>
                 <span>{formatCurrency(total)}</span>

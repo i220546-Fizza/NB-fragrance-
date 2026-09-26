@@ -82,7 +82,7 @@ All JSON. Base URL: `/api`.
 ### Orders — `/api/orders`
 | Method | Path | Auth | Notes |
 |---|---|---|---|
-| POST | `/` | Public (optional auth) | guest or logged-in checkout. Server re-validates price/stock from DB, computes `itemsPrice`, `shippingPrice` (free over 15000 PKR, else 500), `totalPrice`, decrements stock |
+| POST | `/` | Public (optional auth) | guest or logged-in checkout. Server re-validates price/stock from DB, computes `itemsPrice`, a flat `deliveryCharge` (always Rs. 200 — never free, never conditional), `totalPrice`, decrements stock |
 | GET | `/my-orders` | Private | orders for `req.user` |
 | GET | `/:id` | Private | owner or admin only |
 | GET | `/` | Private/Admin | all orders; filters `status`, `search` |

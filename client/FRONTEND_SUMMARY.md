@@ -53,8 +53,8 @@ as a static SVG sheet.
   surfaces the dev-mode `resetUrl`/`resetToken` returned by the backend directly on
   screen, clearly labeled "Development Mode".
 - **Cart**: localStorage-persisted `CartContext` (add/increment/decrement/remove/clear,
-  subtotal + shipping-estimate + total), slide-in `CartDrawer` with the exact toast
-  copy "Added to your collection.", plus a full `/cart` page.
+  subtotal + a flat Rs. 200 delivery charge + total — never free, no threshold), slide-in
+  `CartDrawer` with the exact toast copy "Added to your collection.", plus a full `/cart` page.
 - **Wishlist**: guest fallback in `localStorage`, synced to `/api/users/wishlist` once
   authenticated, with a one-time merge of any guest wishlist into the account right
   after login.
@@ -66,7 +66,7 @@ as a static SVG sheet.
   reviews list + auth-gated review form, and a related-fragrances row from `/related`.
 - **Scent Finder**: multi-select fragrance-family chip quiz → `/api/products/discovery`.
 - **Checkout**: full client-side validation (required fields, email/phone format),
-  order summary mirroring the backend's free-shipping-over-Rs.15,000 rule, Cash on
+  order summary showing the flat Rs. 200 delivery charge on every order, Cash on
   Delivery only, submits to `POST /api/orders`, clears cart, routes to
   `/order-confirmation/:id`, which fetches the real order and shows a checkmark-reveal
   success animation plus an estimated 5–7 business day delivery window.

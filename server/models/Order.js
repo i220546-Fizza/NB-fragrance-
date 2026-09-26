@@ -70,10 +70,13 @@ const orderSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
-    shippingPrice: {
+    // Flat delivery fee applied to every order — never free, never
+    // conditional on subtotal, promotions, or customer. See
+    // controllers/orderController.js DELIVERY_CHARGE.
+    deliveryCharge: {
       type: Number,
       required: true,
-      default: 0,
+      default: 200,
     },
     totalPrice: {
       type: Number,

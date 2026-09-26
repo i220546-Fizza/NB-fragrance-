@@ -2,8 +2,11 @@ import React, { createContext, useCallback, useContext, useEffect, useMemo, useS
 import type { CartItem, Product } from '../types';
 
 const CART_KEY = 'nb_cart';
-const FREE_SHIPPING_THRESHOLD = 15000;
-const SHIPPING_FLAT_RATE = 350;
+// Flat delivery charge applied to every order — never free, never
+// discounted, regardless of subtotal, quantity, or promotions. This is
+// a display estimate only; the backend recalculates and enforces the
+// same fixed Rs. 200 charge independently for every order it creates.
+const DELIVERY_CHARGE = 200;
 
 interface CartContextValue {
   items: CartItem[];
@@ -16,7 +19,7 @@ interface CartContextValue {
   removeItem: (product: string, size: string) => void;
   clearCart: () => void;
   subtotal: number;
-  shippingEstimate: number;
+  deliveryCharge: number;
   total: number;
   itemCount: number;
 }
@@ -90,11 +93,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const clearCart = useCallback(() => setItems([]), []);
 
   const subtotal = useMemo(() => items.reduce((sum, i) => sum + i.price * i.qty, 0), [items]);
-  const shippingEstimate = useMemo(
-    () => (items.length === 0 ? 0 : subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FLAT_RATE),
-    [subtotal, items.length]
-  );
-  const total = subtotal + shippingEstimate;
+  // Flat Rs. 200 delivery charge on every order — no threshold, no
+  // promotion, no free-delivery condition of any kind.
+  const deliveryCharge = DELIVERY_CHARGE;
+  const total = subtotal + deliveryCharge;
   const itemCount = useMemo(() => items.reduce((sum, i) => sum + i.qty, 0), [items]);
 
   const value = useMemo<CartContextValue>(
@@ -109,11 +111,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       removeItem,
       clearCart,
       subtotal,
-      shippingEstimate,
+      deliveryCharge,
       total,
       itemCount,
     }),
-    [items, isDrawerOpen, addItem, increment, decrement, removeItem, clearCart, subtotal, shippingEstimate, total, itemCount]
+    [items, isDrawerOpen, addItem, increment, decrement, removeItem, clearCart, subtotal, deliveryCharge, total, itemCount]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
@@ -125,4 +127,4 @@ export function useCart() {
   return ctx;
 }
 
-export { FREE_SHIPPING_THRESHOLD, SHIPPING_FLAT_RATE };
+export { DELIVERY_CHARGE };
