@@ -93,14 +93,19 @@ export default function ProductCard({
           <span className="text-[11px] text-cocoa/50">({product.numReviews})</span>
         </div>
         <div className="mt-auto flex items-center justify-between pt-2">
-          <span className="font-medium text-cocoa">{formatCurrency(product.price)}</span>
+          <span className="font-medium text-cocoa">
+            {product.sizes.length > 1 && <span className="text-[10px] text-cocoa/45 uppercase tracking-wide mr-1">From</span>}
+            {formatCurrency(product.price)}
+          </span>
           <button
             type="button"
             disabled={product.stock === 0}
             onClick={(e) => {
               e.preventDefault();
-              addItem(product, 1);
-              showToast('Added to your collection.');
+              const cheapest = [...product.sizes].sort((a, b) => a.price - b.price)[0];
+              if (!cheapest) return;
+              addItem(product, cheapest.size, 1);
+              showToast(`Added ${cheapest.size} to your collection.`);
             }}
             className="text-[10px] tracking-[0.15em] uppercase font-semibold text-cocoa border-b border-champagne pb-0.5 hover:text-champagne transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           >

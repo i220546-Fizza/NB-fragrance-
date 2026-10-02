@@ -13,7 +13,7 @@ interface CartContextValue {
   isDrawerOpen: boolean;
   openDrawer: () => void;
   closeDrawer: () => void;
-  addItem: (product: Product, qty?: number, size?: string) => void;
+  addItem: (product: Product, size: string, qty?: number) => void;
   increment: (product: string, size: string) => void;
   decrement: (product: string, size: string) => void;
   removeItem: (product: string, size: string) => void;
@@ -43,10 +43,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem(CART_KEY, JSON.stringify(items));
   }, [items]);
 
-  const addItem = useCallback((product: Product, qty = 1, size?: string) => {
-    const chosenSize = size ?? product.size;
+  const addItem = useCallback((product: Product, size: string, qty = 1) => {
+    const sizeOption = product.sizes.find((s) => s.size === size);
+    if (!sizeOption) return;
     setItems((prev) => {
-      const idx = prev.findIndex((i) => i.product === product._id && i.size === chosenSize);
+      const idx = prev.findIndex((i) => i.product === product._id && i.size === size);
       if (idx >= 0) {
         const next = [...prev];
         const newQty = Math.min(next[idx].qty + qty, Math.max(product.stock, 1));
@@ -60,9 +61,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           slug: product.slug,
           name: product.name,
           image: product.images?.[0] ?? '/images/product-placeholder.svg',
-          price: product.price,
+          price: sizeOption.price,
           qty: Math.min(qty, Math.max(product.stock, 1)),
-          size: chosenSize,
+          size,
           stock: product.stock,
         },
       ];

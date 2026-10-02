@@ -53,6 +53,19 @@ const createOrder = asyncHandler(async (req, res) => {
       throw new Error(`Product not found: ${item.product}`);
     }
 
+    if (!item.size) {
+      res.status(400);
+      throw new Error(`A bottle size is required for "${product.name}"`);
+    }
+
+    // Never trust a client-sent price — look up the real price for the
+    // requested size on the product itself.
+    const sizeOption = (product.sizes || []).find((s) => s.size === item.size);
+    if (!sizeOption) {
+      res.status(400);
+      throw new Error(`"${item.size}" is not an available size for "${product.name}"`);
+    }
+
     if (product.stock < qty) {
       res.status(400);
       throw new Error(`Insufficient stock for "${product.name}". Available: ${product.stock}`);
@@ -62,12 +75,12 @@ const createOrder = asyncHandler(async (req, res) => {
       product: product._id,
       name: product.name,
       image: product.images && product.images.length ? product.images[0] : '',
-      price: product.price,
+      price: sizeOption.price,
       qty,
-      size: item.size || product.size || '',
+      size: sizeOption.size,
     });
 
-    itemsPrice += product.price * qty;
+    itemsPrice += sizeOption.price * qty;
     product.stock -= qty;
     await product.save();
   }

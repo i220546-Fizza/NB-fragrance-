@@ -8,6 +8,7 @@ const FRAGRANCE_FAMILIES = ['Fresh', 'Floral', 'Woody', 'Oud', 'Musky', 'Sweet',
 const COLLECTIONS = ['Eclipse', 'Signature', 'Midnight', 'Essence'];
 const LONGEVITY = ['Weak', 'Moderate', 'Long Lasting', 'Very Long Lasting'];
 const SILLAGE = ['Intimate', 'Moderate', 'Strong', 'Enormous'];
+const SIZE_OPTIONS = Product.SIZE_OPTIONS;
 
 // @desc    Get all products with filters, search, sort, pagination
 // @route   GET /api/products
@@ -166,9 +167,35 @@ const getProductByIdOrSlug = asyncHandler(async (req, res) => {
   res.json({ success: true, product });
 });
 
+const validateSizes = (sizes) => {
+  const errors = [];
+  if (!Array.isArray(sizes) || sizes.length === 0) {
+    errors.push('At least one bottle size with a price is required');
+    return errors;
+  }
+  const seen = new Set();
+  sizes.forEach((entry, i) => {
+    if (!entry || typeof entry !== 'object') {
+      errors.push(`sizes[${i}] must be an object with size and price`);
+      return;
+    }
+    if (!SIZE_OPTIONS.includes(entry.size)) {
+      errors.push(`sizes[${i}].size must be one of: ${SIZE_OPTIONS.join(', ')}`);
+    } else if (seen.has(entry.size)) {
+      errors.push(`sizes contains a duplicate size: ${entry.size}`);
+    } else {
+      seen.add(entry.size);
+    }
+    if (entry.price === undefined || entry.price === null || Number.isNaN(Number(entry.price)) || Number(entry.price) < 0) {
+      errors.push(`sizes[${i}].price must be a non-negative number`);
+    }
+  });
+  return errors;
+};
+
 const validateProductPayload = (body, isUpdate = false) => {
   const errors = [];
-  const required = ['name', 'description', 'price', 'gender', 'fragranceFamily'];
+  const required = ['name', 'description', 'gender', 'fragranceFamily'];
 
   if (!isUpdate) {
     required.forEach((field) => {
@@ -176,6 +203,9 @@ const validateProductPayload = (body, isUpdate = false) => {
         errors.push(`${field} is required`);
       }
     });
+    errors.push(...validateSizes(body.sizes));
+  } else if (body.sizes !== undefined) {
+    errors.push(...validateSizes(body.sizes));
   }
 
   if (body.gender !== undefined && !GENDERS.includes(body.gender)) {
@@ -195,9 +225,6 @@ const validateProductPayload = (body, isUpdate = false) => {
   }
   if (body.sillage !== undefined && body.sillage !== '' && !SILLAGE.includes(body.sillage)) {
     errors.push(`sillage must be one of: ${SILLAGE.join(', ')}`);
-  }
-  if (body.price !== undefined && Number.isNaN(Number(body.price))) {
-    errors.push('price must be a number');
   }
   if (body.stock !== undefined && Number.isNaN(Number(body.stock))) {
     errors.push('stock must be a number');

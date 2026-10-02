@@ -97,7 +97,10 @@ export default function AdminProducts() {
                     </div>
                   </td>
                   <td className="py-3 px-4 text-cocoa/70">{p.collectionName}</td>
-                  <td className="py-3 px-4 text-cocoa">{formatCurrency(p.price)}</td>
+                  <td className="py-3 px-4 text-cocoa">
+                    {p.sizes?.length > 1 && <span className="text-[10px] text-cocoa/40 uppercase mr-1">From</span>}
+                    {formatCurrency(p.price)}
+                  </td>
                   <td className={`py-3 px-4 ${p.stock === 0 ? 'text-rose-champagne' : p.stock < 5 ? 'text-amber-600' : 'text-cocoa/70'}`}>{p.stock}</td>
                   <td className="py-3 px-4">
                     <div className="flex flex-wrap gap-1">

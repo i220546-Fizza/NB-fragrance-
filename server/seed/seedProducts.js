@@ -85,6 +85,22 @@ function pickReviews(rng, count) {
   return reviews;
 }
 
+// ---------------------------------------------------------------------------
+// Per-size pricing — every product carries its own price per bottle size
+// (never one flat price). Multipliers are relative to 50ML and modeled on
+// typical fragrance pricing curves (small bottles cost more per-ml, large
+// bottles cost less per-ml).
+// ---------------------------------------------------------------------------
+const SIZE_MULTIPLIERS = { '10ML': 0.32, '20ML': 0.52, '30ML': 0.7, '50ML': 1, '100ML': 1.75 };
+
+function buildSizes(basePrice, baseSizeLabel) {
+  const anchor = basePrice / SIZE_MULTIPLIERS[baseSizeLabel];
+  return Object.entries(SIZE_MULTIPLIERS).map(([size, multiplier]) => ({
+    size,
+    price: Math.round((anchor * multiplier) / 50) * 50,
+  }));
+}
+
 // simple deterministic pseudo-random generator so re-running the seed is stable
 function mulberry32(seed) {
   return function () {
@@ -355,7 +371,7 @@ async function seed() {
     const doc = {
       name: blueprint.name,
       description: blueprint.description,
-      price: blueprint.price,
+      sizes: buildSizes(blueprint.price, blueprint.size.toUpperCase()),
       images,
       gender: blueprint.gender,
       collectionName: blueprint.collectionName,
@@ -368,7 +384,6 @@ async function seed() {
       sillage: blueprint.sillage,
       occasion: blueprint.occasion,
       season: blueprint.season,
-      size: blueprint.size,
       stock: blueprint.stock,
       featured: blueprint.featured,
       bestseller: blueprint.bestseller,

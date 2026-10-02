@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import type { Product } from '../types';
 import { formatCurrency } from '../utils/formatCurrency';
 import StarRating from './StarRating';
 import QuantitySelector from './QuantitySelector';
+import SizeSelector from './SizeSelector';
 import { useCart } from '../context/CartContext';
 import { useToast } from './ToastHost';
 
@@ -12,6 +13,16 @@ export default function QuickViewModal({ product, onClose }: { product: Product 
   const { addItem } = useCart();
   const { showToast } = useToast();
   const [qty, setQty] = useState(1);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [sizeError, setSizeError] = useState(false);
+
+  useEffect(() => {
+    setQty(1);
+    setSelectedSize(null);
+    setSizeError(false);
+  }, [product?._id]);
+
+  const activePrice = product?.sizes.find((s) => s.size === selectedSize)?.price ?? product?.price;
 
   return (
     <AnimatePresence>
@@ -53,14 +64,37 @@ export default function QuickViewModal({ product, onClose }: { product: Product 
                 <StarRating rating={product.rating} size={13} />
                 <span className="text-xs text-cocoa/50">({product.numReviews})</span>
               </div>
-              <p className="text-lg font-medium text-cocoa mt-3">{formatCurrency(product.price)}</p>
+              <p className="text-lg font-medium text-cocoa mt-3">
+                {!selectedSize && product.sizes.length > 1 && (
+                  <span className="text-[10px] text-cocoa/45 uppercase tracking-wide mr-1">From</span>
+                )}
+                {formatCurrency(activePrice ?? 0)}
+              </p>
               <p className="text-sm text-cocoa/60 mt-3 line-clamp-3">{product.description}</p>
+
+              <p className="label-field mt-5 mb-2">Select Size</p>
+              <SizeSelector
+                sizes={product.sizes}
+                selected={selectedSize}
+                onSelect={(s) => {
+                  setSelectedSize(s);
+                  setSizeError(false);
+                }}
+                compact
+                layoutId="quickview-size-bg"
+              />
+              {sizeError && <p className="text-xs text-rose-champagne mt-2">Please select a bottle size.</p>}
+
               <div className="mt-5 flex items-center gap-3">
                 <QuantitySelector value={qty} onChange={setQty} max={Math.max(product.stock, 1)} />
                 <button
                   disabled={product.stock === 0}
                   onClick={() => {
-                    addItem(product, qty);
+                    if (!selectedSize) {
+                      setSizeError(true);
+                      return;
+                    }
+                    addItem(product, selectedSize, qty);
                     showToast('Added to your collection.');
                     onClose();
                   }}

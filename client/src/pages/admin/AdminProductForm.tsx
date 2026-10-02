@@ -3,11 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { productService } from '../../services/productService';
 import { uploadService } from '../../services/uploadService';
 import { getApiErrorMessage } from '../../services/api';
-import type { Category, FragranceFamily, Gender, CollectionName, Product } from '../../types';
+import type { BottleSize, Category, FragranceFamily, Gender, CollectionName, Product } from '../../types';
 import { usePageMeta } from '../../utils/usePageMeta';
 import { useToast } from '../../components/ToastHost';
 import TagInput from '../../components/TagInput';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import { BOTTLE_SIZES, prettySize } from '../../utils/sizes';
 
 const GENDERS: Gender[] = ['Men', 'Women', 'Unisex'];
 const COLLECTIONS: CollectionName[] = ['Eclipse', 'Signature', 'Midnight', 'Essence'];
@@ -18,10 +19,27 @@ const SILLAGE_OPTIONS = ['Intimate', 'Moderate', 'Strong', 'Enormous'];
 const OCCASION_OPTIONS = ['Casual', 'Office', 'Evening', 'Formal', 'Date Night', 'Party'];
 const SEASON_OPTIONS = ['Spring', 'Summer', 'Autumn', 'Winter', 'All Season'];
 
+interface SizePriceRow {
+  size: BottleSize;
+  enabled: boolean;
+  price: string;
+}
+
+function defaultSizeRows(): SizePriceRow[] {
+  return BOTTLE_SIZES.map((size) => ({ size, enabled: size === '50ML' || size === '100ML', price: '' }));
+}
+
+function sizeRowsFromProduct(p: Product): SizePriceRow[] {
+  return BOTTLE_SIZES.map((size) => {
+    const existing = p.sizes?.find((s) => s.size === size);
+    return { size, enabled: Boolean(existing), price: existing ? String(existing.price) : '' };
+  });
+}
+
 interface FormState {
   name: string;
   description: string;
-  price: string;
+  sizes: SizePriceRow[];
   gender: Gender;
   collectionName: CollectionName;
   category: Category;
@@ -33,7 +51,6 @@ interface FormState {
   sillage: string;
   occasion: string[];
   season: string[];
-  size: string;
   stock: string;
   featured: boolean;
   bestseller: boolean;
@@ -44,7 +61,7 @@ interface FormState {
 const emptyForm: FormState = {
   name: '',
   description: '',
-  price: '',
+  sizes: defaultSizeRows(),
   gender: 'Unisex',
   collectionName: 'Signature',
   category: 'Unisex',
@@ -56,7 +73,6 @@ const emptyForm: FormState = {
   sillage: 'Moderate',
   occasion: [],
   season: [],
-  size: '50ml',
   stock: '0',
   featured: false,
   bestseller: false,
@@ -68,7 +84,7 @@ function productToForm(p: Product): FormState {
   return {
     name: p.name,
     description: p.description,
-    price: String(p.price),
+    sizes: sizeRowsFromProduct(p),
     gender: p.gender,
     collectionName: p.collectionName,
     category: p.category,
@@ -80,7 +96,6 @@ function productToForm(p: Product): FormState {
     sillage: p.sillage ?? 'Moderate',
     occasion: p.occasion ?? [],
     season: p.season ?? [],
-    size: p.size ?? '50ml',
     stock: String(p.stock ?? 0),
     featured: p.featured,
     bestseller: p.bestseller,
@@ -136,8 +151,17 @@ export default function AdminProductForm() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.description.trim() || !form.price) {
-      setError('Name, description, and price are required.');
+    if (!form.name.trim() || !form.description.trim()) {
+      setError('Name and description are required.');
+      return;
+    }
+    const enabledSizes = form.sizes.filter((r) => r.enabled);
+    if (enabledSizes.length === 0) {
+      setError('Select at least one bottle size and enter its price.');
+      return;
+    }
+    if (enabledSizes.some((r) => r.price === '' || Number.isNaN(Number(r.price)) || Number(r.price) < 0)) {
+      setError('Enter a valid price for every selected bottle size.');
       return;
     }
     setSaving(true);
@@ -145,7 +169,7 @@ export default function AdminProductForm() {
     const payload: Partial<Product> = {
       name: form.name.trim(),
       description: form.description.trim(),
-      price: Number(form.price),
+      sizes: enabledSizes.map((r) => ({ size: r.size, price: Number(r.price) })),
       gender: form.gender,
       collectionName: form.collectionName,
       category: form.category,
@@ -157,7 +181,6 @@ export default function AdminProductForm() {
       sillage: form.sillage,
       occasion: form.occasion,
       season: form.season,
-      size: form.size,
       stock: Number(form.stock) || 0,
       featured: form.featured,
       bestseller: form.bestseller,
@@ -197,21 +220,56 @@ export default function AdminProductForm() {
             <label className="label-field">Description</label>
             <textarea value={form.description} onChange={(e) => set('description', e.target.value)} rows={4} className="input-field resize-none" required />
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="label-field">Price (Rs.)</label>
-              <input type="number" min={0} value={form.price} onChange={(e) => set('price', e.target.value)} className="input-field" required />
-            </div>
-            <div>
-              <label className="label-field">Stock</label>
-              <input type="number" min={0} value={form.stock} onChange={(e) => set('stock', e.target.value)} className="input-field" />
-            </div>
+          <div>
+            <label className="label-field">Stock</label>
+            <input type="number" min={0} value={form.stock} onChange={(e) => set('stock', e.target.value)} className="input-field max-w-[180px]" />
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="label-field">Size</label>
-              <input value={form.size} onChange={(e) => set('size', e.target.value)} className="input-field" placeholder="50ml" />
-            </div>
+        </div>
+
+        <div className="bg-white border border-cocoa/10 rounded-sm p-6 space-y-4">
+          <div>
+            <h2 className="font-display text-lg text-cocoa">Bottle Sizes &amp; Pricing</h2>
+            <p className="text-xs text-cocoa/50 mt-1">Enable each size this fragrance is sold in and set its price. At least one is required.</p>
+          </div>
+          <div className="space-y-2.5">
+            {form.sizes.map((row, i) => (
+              <div
+                key={row.size}
+                className={`flex items-center gap-4 rounded-sm border px-4 py-3 transition-colors ${
+                  row.enabled ? 'border-champagne/50 bg-champagne/5' : 'border-cocoa/10'
+                }`}
+              >
+                <label className="flex items-center gap-2.5 w-28 shrink-0 text-sm text-cocoa cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={row.enabled}
+                    onChange={(e) => {
+                      const next = [...form.sizes];
+                      next[i] = { ...row, enabled: e.target.checked };
+                      set('sizes', next);
+                    }}
+                    className="accent-champagne h-4 w-4"
+                  />
+                  {prettySize(row.size)}
+                </label>
+                <div className="flex items-center gap-2 flex-1">
+                  <span className="text-sm text-cocoa/50">Rs.</span>
+                  <input
+                    type="number"
+                    min={0}
+                    value={row.price}
+                    disabled={!row.enabled}
+                    onChange={(e) => {
+                      const next = [...form.sizes];
+                      next[i] = { ...row, price: e.target.value };
+                      set('sizes', next);
+                    }}
+                    placeholder="0"
+                    className="input-field disabled:opacity-40 disabled:cursor-not-allowed"
+                  />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 

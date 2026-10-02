@@ -11,6 +11,13 @@ export type FragranceFamily =
   | 'Citrus'
   | 'Oriental';
 
+export type BottleSize = '10ML' | '20ML' | '30ML' | '50ML' | '100ML';
+
+export interface SizeOption {
+  size: BottleSize;
+  price: number;
+}
+
 export interface Review {
   user: string;
   name: string;
@@ -24,7 +31,10 @@ export interface Product {
   name: string;
   slug: string;
   description: string;
+  /** "Starting from" price — the cheapest size's price. Derived server-side. */
   price: number;
+  /** Per-size pricing. The customer picks one of these before adding to cart. */
+  sizes: SizeOption[];
   images: string[];
   gender: Gender;
   collectionName: CollectionName;
@@ -37,7 +47,6 @@ export interface Product {
   sillage: string;
   occasion: string[];
   season: string[];
-  size: string;
   stock: number;
   featured: boolean;
   bestseller: boolean;

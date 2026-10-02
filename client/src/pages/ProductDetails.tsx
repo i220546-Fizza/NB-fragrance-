@@ -10,6 +10,7 @@ import { useWishlist } from '../context/WishlistContext';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ToastHost';
 import QuantitySelector from '../components/QuantitySelector';
+import SizeSelector from '../components/SizeSelector';
 import StarRating from '../components/StarRating';
 import NotesDiagram from '../components/NotesDiagram';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -46,6 +47,8 @@ export default function ProductDetails() {
   const [error, setError] = useState<string | null>(null);
   const [activeImage, setActiveImage] = useState(0);
   const [qty, setQty] = useState(1);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [sizeError, setSizeError] = useState(false);
   const [related, setRelated] = useState<Product[]>([]);
   const [reviewRating, setReviewRating] = useState(5);
   const [reviewComment, setReviewComment] = useState('');
@@ -64,6 +67,8 @@ export default function ProductDetails() {
         setProduct(p);
         setActiveImage(0);
         setQty(1);
+        setSelectedSize(null);
+        setSizeError(false);
         return productService.related(p._id).catch(() => []);
       })
       .then((rel) => setRelated(rel))
@@ -94,6 +99,21 @@ export default function ProductDetails() {
 
   const images = product.images?.length ? product.images : ['/images/product-placeholder.svg'];
   const wished = isWishlisted(product._id);
+  const selectedSizeOption = product.sizes.find((s) => s.size === selectedSize);
+  const displayPrice = selectedSizeOption?.price ?? product.price;
+
+  const addToCart = (andCheckout: boolean) => {
+    if (!selectedSize) {
+      setSizeError(true);
+      return;
+    }
+    addItem(product, selectedSize, qty);
+    if (andCheckout) {
+      navigate('/checkout');
+    } else {
+      showToast('Added to your collection.');
+    }
+  };
 
   const submitReview = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -166,11 +186,29 @@ export default function ProductDetails() {
               <StarRating rating={product.rating} size={15} />
               <span className="text-xs text-cocoa/50">{product.numReviews} reviews</span>
             </div>
-            <p className="font-display text-2xl text-champagne mt-5">{formatCurrency(product.price)}</p>
+            <p className="font-display text-2xl text-champagne mt-5">
+              {!selectedSizeOption && product.sizes.length > 1 && (
+                <span className="text-xs text-cocoa/45 uppercase tracking-wide mr-1.5 align-middle">From</span>
+              )}
+              {formatCurrency(displayPrice)}
+            </p>
             <p className="text-cocoa/65 leading-relaxed mt-5 max-w-lg">{product.description}</p>
 
+            <div className="mt-7">
+              <p className="label-field mb-2.5">Select Size</p>
+              <SizeSelector
+                sizes={product.sizes}
+                selected={selectedSize}
+                onSelect={(s) => {
+                  setSelectedSize(s);
+                  setSizeError(false);
+                }}
+                layoutId="pdp-size-bg"
+              />
+              {sizeError && <p className="text-xs text-rose-champagne mt-2.5">Please select a bottle size.</p>}
+            </div>
+
             <div className="flex flex-wrap gap-4 mt-6 text-sm text-cocoa/70">
-              <span>Size: <strong className="text-cocoa">{product.size}</strong></span>
               <span>Longevity: <strong className="text-cocoa">{product.longevity}</strong></span>
               <span>Sillage: <strong className="text-cocoa">{product.sillage}</strong></span>
               <span>
@@ -206,20 +244,14 @@ export default function ProductDetails() {
               <QuantitySelector value={qty} onChange={setQty} max={Math.max(product.stock, 1)} />
               <button
                 disabled={product.stock === 0}
-                onClick={() => {
-                  addItem(product, qty);
-                  showToast('Added to your collection.');
-                }}
+                onClick={() => addToCart(false)}
                 className="btn-outline-dark flex-1 disabled:opacity-40"
               >
                 Add to Cart
               </button>
               <button
                 disabled={product.stock === 0}
-                onClick={() => {
-                  addItem(product, qty);
-                  navigate('/checkout');
-                }}
+                onClick={() => addToCart(true)}
                 className="btn-primary flex-1 disabled:opacity-40"
               >
                 Buy Now
