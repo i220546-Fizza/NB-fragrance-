@@ -134,8 +134,9 @@ export default function AdminHomepage() {
     <div className="max-w-3xl">
       <h1 className="font-display text-2xl md:text-3xl text-cocoa mb-2">Homepage</h1>
       <p className="text-sm text-cocoa/60 mb-8">
-        Replace the photo shown for each hero carousel slide on the homepage. Sizes, wording, and the rest of the site
-        are unaffected.
+        Replace the photo shown for each hero carousel slide on the homepage. For Eclipse, Signature, Midnight and
+        Essence, the same photo also replaces that collection&rsquo;s tile further down the homepage. Sizes, wording,
+        and the rest of the site are unaffected.
       </p>
 
       {error && <p className="text-sm text-rose-champagne mb-4">{error}</p>}
