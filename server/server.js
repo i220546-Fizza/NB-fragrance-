@@ -51,6 +51,19 @@ app.use('/api/uploads', uploadRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/hero-slides', heroSlideRoutes);
 
+// In production, serve the built React app from the same service/origin
+// (client/dist produced by `npm run build` in client/) so only one deployed
+// URL and no CORS setup is needed. API routes above still take precedence;
+// any other path falls through to the SPA's index.html for client routing.
+if (process.env.NODE_ENV === 'production') {
+  const clientDist = path.join(__dirname, '../client/dist');
+  app.use(express.static(clientDist));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) return next();
+    res.sendFile(path.join(clientDist, 'index.html'));
+  });
+}
+
 // Error handling middleware (must be last)
 app.use(notFound);
 app.use(errorHandler);

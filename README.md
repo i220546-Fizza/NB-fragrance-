@@ -100,8 +100,9 @@ Open `http://localhost:5173` — the Vite dev server proxies `/api` and `/upload
 **Production build**
 ```bash
 cd client && npm run build   # outputs static files to client/dist
-cd server && npm start       # serve the API (front it with your own static host/CDN or reverse proxy for client/dist)
+cd server && NODE_ENV=production npm start
 ```
+With `NODE_ENV=production`, the Express server itself serves `client/dist` (static assets + SPA fallback) alongside the `/api` routes, so the whole site is one process on one URL/port — no separate static host or CORS setup needed. See **Deploying to Render** below for a concrete hosting walkthrough.
 
 ## 8. Creating/Logging In as Admin
 
@@ -115,3 +116,42 @@ No product photography existed in this repository, and this build environment's 
 - `client/public/images/hero-bottle-*.svg`, `liquid-splash-*.svg`, `about-campaign.svg`, `brand-story.svg`, `social-*.svg`, `logo-mark.svg` — the cinematic hero, About-page, and social-showcase artwork.
 
 To swap in real photography later: drop your own images into `server/uploads/products/` (or upload them through the admin panel), then either re-run `npm run seed` with updated filenames, or update each product's images via **Admin → Products → Edit**.
+
+## 10. Deploying to Render
+
+This repo deploys as a **single Render Web Service** — one build produces the API and the static frontend, and the Express server (see §7) serves both from one URL, so there's nothing else to stand up.
+
+**1. Database — MongoDB Atlas (free tier)**
+1. Create a free cluster at [mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas).
+2. Database Access → add a user with a strong password.
+3. Network Access → Add IP Address → **Allow Access from Anywhere** (`0.0.0.0/0`) — Render's outbound IPs aren't static on the free plan.
+4. Copy the connection string (`Connect → Drivers`) and fill in the password and a database name, e.g.
+   `mongodb+srv://<user>:<password>@<cluster>.mongodb.net/nb-classic-scents?retryWrites=true&w=majority`
+
+**2. Web Service — Render**
+1. [render.com](https://render.com) → New → Web Service → connect this GitHub repo (`i220546-Fizza/nb-fragrance-` / `NB-fragrance-`).
+2. **Root Directory**: leave blank (repo root) — the build command below handles both folders.
+3. **Build Command**:
+   ```
+   npm install --prefix server && npm install --prefix client && npm run build --prefix client
+   ```
+4. **Start Command**:
+   ```
+   npm start --prefix server
+   ```
+5. **Environment Variables** (Render → Environment tab):
+   | Key | Value |
+   |---|---|
+   | `NODE_ENV` | `production` |
+   | `MONGO_URI` | your Atlas connection string from step 1 |
+   | `JWT_SECRET` | a long random string (e.g. `openssl rand -hex 32`) |
+   | `JWT_EXPIRES_IN` | `30d` |
+   | `ADMIN_NAME` | your choice |
+   | `ADMIN_EMAIL` | your choice |
+   | `ADMIN_PASSWORD` | a strong password — **not** the `.env.example` default |
+
+   `PORT` is set automatically by Render; `CLIENT_URL` isn't needed since the frontend is served from the same origin.
+6. Deploy. Render builds both folders and starts the server, which serves the site at the `onrender.com` URL it gives you.
+7. Seed the database once, from your own machine (Render's free plan has no shell access): point a local `.env` at the same `MONGO_URI` and run `npm run seed` from `server/` — this creates the admin account and the 20 sample fragrances.
+
+**⚠️ Admin-uploaded images don't persist.** `server/uploads/` and the `HeroSlide`/product-image uploads built in this project write to local disk. Render's filesystem is **ephemeral** — anything written there is wiped on every redeploy and periodically on restart. The 20 seeded SVG products and bundled hero artwork are unaffected (they're committed to the repo), but any photo an admin uploads through **Admin → Products** or **Admin → Homepage** after deploying will eventually disappear. For durable uploads, wire the existing `server/controllers/uploadController.js` to an object store (Cloudinary's free tier is the least code to add) or attach a [Render Disk](https://render.com/docs/disks) (paid) mounted at `server/uploads`. Ask if you'd like this wired in — it isn't done yet.
