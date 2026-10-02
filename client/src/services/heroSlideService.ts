@@ -1,18 +1,25 @@
 import api from './api';
 
+export interface HeroSlideOverride {
+  image?: string;
+  description?: string;
+}
+
 export const heroSlideService = {
-  /** Map of slide key -> admin-uploaded image path, for whichever slides have one. */
+  /** Map of slide key -> whichever fields (image/description) an admin has overridden. */
   getAll() {
     return api
-      .get<{ success: boolean; slides: Record<string, string> }>('/hero-slides')
+      .get<{ success: boolean; slides: Record<string, HeroSlideOverride> }>('/hero-slides')
       .then((r) => r.data.slides);
   },
-  update(key: string, image: string) {
+  /** Updates only the fields passed - e.g. { description } leaves an existing image override untouched. */
+  update(key: string, fields: HeroSlideOverride) {
     return api
-      .put<{ success: boolean; slide: { key: string; image: string } }>(`/hero-slides/${key}`, { image })
+      .put<{ success: boolean; slide: { key: string } & HeroSlideOverride }>(`/hero-slides/${key}`, fields)
       .then((r) => r.data.slide);
   },
-  remove(key: string) {
-    return api.delete(`/hero-slides/${key}`).then((r) => r.data);
+  /** Reverts a single field ('image' or 'description') back to the site default. */
+  remove(key: string, field: 'image' | 'description') {
+    return api.delete(`/hero-slides/${key}/${field}`).then((r) => r.data);
   },
 };

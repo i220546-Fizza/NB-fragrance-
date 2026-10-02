@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Reveal from './Reveal';
-import { heroSlideService } from '../services/heroSlideService';
+import { heroSlideService, type HeroSlideOverride } from '../services/heroSlideService';
 
 const collections = [
   { key: 'eclipse', name: 'Eclipse', bottle: '/images/hero-bottle-eclipse.svg', tag: 'Mystery & Radiance' },
@@ -11,7 +11,7 @@ const collections = [
 ];
 
 export default function CollectionGrid() {
-  const [overrides, setOverrides] = useState<Record<string, string>>({});
+  const [overrides, setOverrides] = useState<Record<string, HeroSlideOverride>>({});
 
   useEffect(() => {
     heroSlideService
@@ -38,7 +38,7 @@ export default function CollectionGrid() {
                 className="group relative flex flex-col items-center bg-white border border-cocoa/10 rounded-sm overflow-hidden aspect-[3/4] px-4 pt-8 pb-6 hover:shadow-gold-sm hover:border-champagne/40 transition-all duration-500"
               >
                 <img
-                  src={overrides[c.key] ?? c.bottle}
+                  src={overrides[c.key]?.image ?? c.bottle}
                   alt={`${c.name} collection bottle`}
                   className="relative h-3/4 w-auto object-contain transition-transform duration-700 ease-cinematic group-hover:scale-105 group-hover:-translate-y-1"
                   loading="lazy"

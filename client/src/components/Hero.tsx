@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { HERO_SLIDES } from '../data/heroSlides';
-import { heroSlideService } from '../services/heroSlideService';
+import { heroSlideService, type HeroSlideOverride } from '../services/heroSlideService';
 
 const AUTO_ADVANCE_MS = 6000;
 
@@ -58,7 +58,7 @@ export default function Hero() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [overrides, setOverrides] = useState<Record<string, string>>({});
+  const [overrides, setOverrides] = useState<Record<string, HeroSlideOverride>>({});
   const containerRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
   const isTouch = typeof window !== 'undefined' && 'ontouchstart' in window;
@@ -75,11 +75,18 @@ export default function Hero() {
   // An admin-uploaded photo replaces the slide's default artwork and is
   // always shown with the real-photography treatment (framed panel + Ken
   // Burns zoom) rather than the illustrated bottle/pedestal/ribbon composite.
+  // The description text can be overridden independently of the photo.
   const slides = useMemo(
     () =>
       HERO_SLIDES.map((s) => {
         const override = overrides[s.key];
-        return override ? { ...s, bottle: override, photo: true } : s;
+        if (!override) return s;
+        return {
+          ...s,
+          bottle: override.image || s.bottle,
+          description: override.description || s.description,
+          photo: override.image ? true : s.photo,
+        };
       }),
     [overrides]
   );
