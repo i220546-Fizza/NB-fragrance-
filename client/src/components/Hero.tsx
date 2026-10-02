@@ -7,6 +7,9 @@ interface Slide {
   collection: string;
   headline: string;
   tagline: string;
+  description: string;
+  ctaPrimary: string;
+  ctaSecondary: string;
   bottle: string;
   glow: string;
   particleColor: string;
@@ -19,8 +22,12 @@ const SLIDES: Slide[] = [
   {
     key: 'zafora',
     collection: 'Zafora',
-    headline: 'Zafora. A Presence, Not an Afterthought.',
-    tagline: 'Warmth, stone and light — distilled into a single pour.',
+    headline: 'Zafora',
+    tagline: 'Crafted for the Senses.',
+    description:
+      'A sophisticated fragrance that captures warmth, light and quiet confidence in every note — composed for those who leave a lasting impression.',
+    ctaPrimary: 'Explore Zafora',
+    ctaSecondary: 'Shop Collection',
     bottle: '/images/hero-zafora.webp',
     glow: 'rgba(214,183,124,0.35)',
     particleColor: '#D6B77C',
@@ -32,6 +39,9 @@ const SLIDES: Slide[] = [
     collection: 'Eclipse',
     headline: 'Eclipsed in Mystery, Radiant in Presence.',
     tagline: 'Unveil the essence of mystery and radiance.',
+    description: 'Deep, warm and unmistakably bold — the Eclipse collection for those who command a room.',
+    ctaPrimary: 'Explore Collection',
+    ctaSecondary: 'Discover Your Scent',
     bottle: '/images/hero-bottle-eclipse.svg',
     glow: 'rgba(214,183,124,0.4)',
     particleColor: '#D6B77C',
@@ -42,6 +52,9 @@ const SLIDES: Slide[] = [
     collection: 'Signature',
     headline: 'A Signature Scent. A Lasting Impression.',
     tagline: 'Your scent. Your identity.',
+    description: 'Elegant, timeless and entirely yours — a fragrance composed to become your signature.',
+    ctaPrimary: 'Explore Collection',
+    ctaSecondary: 'Discover Your Scent',
     bottle: '/images/hero-bottle-signature.svg',
     glow: 'rgba(214,183,124,0.45)',
     particleColor: '#D6B77C',
@@ -52,6 +65,9 @@ const SLIDES: Slide[] = [
     collection: 'Midnight',
     headline: 'Made for Unforgettable Nights.',
     tagline: 'Made for unforgettable nights.',
+    description: 'Sensual and enveloping — the Midnight collection lingers long after the night ends.',
+    ctaPrimary: 'Explore Collection',
+    ctaSecondary: 'Discover Your Scent',
     bottle: '/images/hero-bottle-midnight.svg',
     glow: 'rgba(90,80,180,0.35)',
     particleColor: '#8F8CD9',
@@ -62,6 +78,9 @@ const SLIDES: Slide[] = [
     collection: 'Essence',
     headline: 'Discover Your Signature.',
     tagline: 'Discover your signature.',
+    description: 'Pure, understated and quietly confident — a fragrance for those who favor discovery over declaration.',
+    ctaPrimary: 'Explore Collection',
+    ctaSecondary: 'Discover Your Scent',
     bottle: '/images/hero-bottle-essence.svg',
     glow: 'rgba(216,176,154,0.45)',
     particleColor: '#D8B09A',
@@ -182,7 +201,21 @@ export default function Hero() {
         transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
       />
 
-      <div className="relative w-full max-w-7xl mx-auto px-6 sm:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-6 items-center">
+      {/* oversized editorial wordmark, bleeding behind the product */}
+      <motion.div
+        key={`word-${slide.key}`}
+        aria-hidden="true"
+        className="absolute inset-0 flex items-center justify-center lg:justify-end pointer-events-none select-none z-[1]"
+        initial={{ opacity: 0, scale: 1.04 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <span className="font-display font-normal leading-none tracking-tight text-cocoa/[0.09] text-[34vw] sm:text-[24vw] lg:text-[17rem] lg:mr-[4%] whitespace-nowrap">
+          NB
+        </span>
+      </motion.div>
+
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-6 items-center">
         {/* copy */}
         <motion.div
           key={`copy-${slide.key}`}
@@ -191,8 +224,11 @@ export default function Hero() {
           animate="show"
           className="order-2 lg:order-1 text-center lg:text-left"
         >
-          <motion.span variants={item} className="eyebrow text-champagne block mb-4">
-            NB Classic Scents
+          <motion.span
+            variants={item}
+            className="block mb-5 font-display text-2xl sm:text-3xl md:text-4xl tracking-[0.04em] text-champagne"
+          >
+            NB <span className="text-soft-gold">Classic Scents</span>
           </motion.span>
           <motion.h1 variants={item} className="font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.1] text-cocoa">
             {slide.headline}
@@ -200,15 +236,15 @@ export default function Hero() {
           <motion.p variants={item} className="mt-5 text-cocoa/70 text-base sm:text-lg max-w-md mx-auto lg:mx-0 font-script text-xl">
             {slide.tagline}
           </motion.p>
-          <motion.p variants={item} className="mt-2 text-cocoa/50 text-sm max-w-md mx-auto lg:mx-0">
-            Discover fragrances created to define your presence.
+          <motion.p variants={item} className="mt-3 text-cocoa/55 text-sm leading-relaxed max-w-md mx-auto lg:mx-0">
+            {slide.description}
           </motion.p>
           <motion.div variants={item} className="mt-9 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
             <Link to="/shop" className="btn-primary w-full sm:w-auto">
-              Explore Collection
+              {slide.ctaPrimary}
             </Link>
             <Link to="/scent-finder" className="btn-outline-dark w-full sm:w-auto">
-              Discover Your Scent
+              {slide.ctaSecondary}
             </Link>
           </motion.div>
         </motion.div>
