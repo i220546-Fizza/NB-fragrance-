@@ -6,9 +6,9 @@ interface Point {
   total: number;
 }
 
-const LINE_COLOR = '#B8894A'; // champagne-family hue, darkened for AA contrast on white
-const AREA_TOP = 'rgba(184,137,74,0.28)';
-const AREA_BOTTOM = 'rgba(184,137,74,0)';
+const LINE_COLOR = '#B89A6A'; // champagne-family hue, darkened for AA contrast on white
+const AREA_TOP = 'rgba(184,154,106,0.28)';
+const AREA_BOTTOM = 'rgba(184,154,106,0)';
 
 export default function SalesTrendChart({ data }: { data: Point[] }) {
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
@@ -83,7 +83,7 @@ export default function SalesTrendChart({ data }: { data: Point[] }) {
                 x2={width - padding.right}
                 y1={padding.top + (height - padding.top - padding.bottom) * f}
                 y2={padding.top + (height - padding.top - padding.bottom) * f}
-                stroke="#3A2C25"
+                stroke="#3F332A"
                 strokeOpacity="0.06"
               />
             ))}

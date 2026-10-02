@@ -65,7 +65,7 @@ export default function OrderConfirmation() {
               height="34"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#D6B77C"
+              stroke="#B89A6A"
               strokeWidth="2"
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}

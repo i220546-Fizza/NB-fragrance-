@@ -3,17 +3,27 @@
 @tailwind utilities;
 
 :root {
-  --nb-offwhite: #faf8f5;
-  --nb-midnight-navy: #07111f;
-  --nb-deep-navy: #0d1b2e;
-  --nb-ivory: #f8f4ec;
-  --nb-warm-cream: #f2e8da;
-  --nb-champagne: #d6b77c;
-  --nb-soft-gold: #c9a96e;
-  --nb-rose-champagne: #d8b09a;
-  --nb-warm-beige: #e4d5c3;
-  --nb-cocoa: #3a2c25;
-  --nb-espresso: #2a211d;
+  /* NB Classic Scents palette */
+  --nb-background: #faf8f5;
+  --nb-beige: #e8dccb;
+  --nb-taupe: #b09878;
+  --nb-warm-brown: #6b5543;
+  --nb-gold: #b89a6a;
+  --nb-dark-brown: #3f332a;
+  --nb-white: #f8f5ef;
+
+  /* legacy aliases, remapped onto the palette above */
+  --nb-offwhite: var(--nb-background);
+  --nb-midnight-navy: var(--nb-dark-brown);
+  --nb-deep-navy: var(--nb-warm-brown);
+  --nb-ivory: var(--nb-white);
+  --nb-warm-cream: var(--nb-beige);
+  --nb-champagne: var(--nb-gold);
+  --nb-soft-gold: var(--nb-taupe);
+  --nb-rose-champagne: #a8603e; /* kept distinct for error/destructive states */
+  --nb-warm-beige: var(--nb-beige);
+  --nb-cocoa: var(--nb-dark-brown);
+  --nb-espresso: var(--nb-dark-brown);
 }
 
 html {
@@ -63,7 +73,7 @@ body {
 }
 
 .gold-text-gradient {
-  background: linear-gradient(90deg, #f4e2b8, #d6b77c 45%, #c9a96e 100%);
+  background: linear-gradient(90deg, #d4bd97, var(--nb-gold) 45%, var(--nb-taupe) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

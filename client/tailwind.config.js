@@ -5,17 +5,31 @@ export default {
   theme: {
     extend: {
       colors: {
+        // NB Classic Scents palette
+        background: '#FAF8F5',
+        beige: '#E8DCCB',
+        taupe: '#B09878',
+        'warm-brown': '#6B5543',
+        gold: '#B89A6A',
+        'dark-brown': '#3F332A',
+        white: '#F8F5EF',
+
+        // Legacy aliases kept so existing utility classes (bg-cocoa,
+        // text-champagne, etc.) keep working — remapped onto the palette
+        // above rather than their old hex values.
         offwhite: '#FAF8F5',
-        'midnight-navy': '#07111F',
-        'deep-navy': '#0D1B2E',
-        ivory: '#F8F4EC',
-        'warm-cream': '#F2E8DA',
-        champagne: '#D6B77C',
-        'soft-gold': '#C9A96E',
-        'rose-champagne': '#D8B09A',
-        'warm-beige': '#E4D5C3',
-        cocoa: '#3A2C25',
-        espresso: '#2A211D',
+        'midnight-navy': '#3F332A',
+        'deep-navy': '#6B5543',
+        ivory: '#F8F5EF',
+        'warm-cream': '#E8DCCB',
+        champagne: '#B89A6A',
+        'soft-gold': '#B09878',
+        // kept distinct from the rest of the palette so error/destructive
+        // states (form validation, remove, sold out) still read as alerts
+        'rose-champagne': '#A8603E',
+        'warm-beige': '#E8DCCB',
+        cocoa: '#3F332A',
+        espresso: '#3F332A',
       },
       fontFamily: {
         display: ['"Playfair Display"', 'serif'],
@@ -24,8 +38,8 @@ export default {
         sans: ['"Inter"', 'sans-serif'],
       },
       boxShadow: {
-        gold: '0 0 40px rgba(214, 183, 124, 0.35)',
-        'gold-sm': '0 0 20px rgba(214, 183, 124, 0.25)',
+        gold: '0 0 40px rgba(184, 154, 106, 0.35)',
+        'gold-sm': '0 0 20px rgba(184, 154, 106, 0.25)',
       },
       transitionTimingFunction: {
         cinematic: 'cubic-bezier(0.16, 1, 0.3, 1)',

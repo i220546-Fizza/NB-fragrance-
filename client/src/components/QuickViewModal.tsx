@@ -46,7 +46,7 @@ export default function QuickViewModal({ product, onClose }: { product: Product 
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
             <button onClick={onClose} aria-label="Close quick view" className="absolute top-3 right-3 z-10 h-8 w-8 rounded-full bg-white/90 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3A2C25" strokeWidth="1.6">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3F332A" strokeWidth="1.6">
                 <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
               </svg>
             </button>

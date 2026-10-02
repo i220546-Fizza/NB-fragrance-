@@ -263,7 +263,7 @@ export default function ProductDetails() {
                   wished ? 'border-champagne bg-champagne/10' : 'border-cocoa/20 hover:border-champagne'
                 }`}
               >
-                <svg width="19" height="19" viewBox="0 0 24 24" fill={wished ? '#D6B77C' : 'none'} stroke="#D6B77C" strokeWidth="1.4">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill={wished ? '#B89A6A' : 'none'} stroke="#B89A6A" strokeWidth="1.4">
                   <path d="M12 20s-7-4.35-9.5-8.5C.7 8 2 4.5 5.5 4.5c2 0 3.5 1 4.5 2.5.7 1 1 1 1 1s.3 0 1-1c1-1.5 2.5-2.5 4.5-2.5 3.5 0 4.8 3.5 3 7C19 15.65 12 20 12 20z" />
                 </svg>
               </button>

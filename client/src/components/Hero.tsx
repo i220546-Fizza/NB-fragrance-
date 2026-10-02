@@ -29,8 +29,8 @@ const SLIDES: Slide[] = [
     ctaPrimary: 'Explore Zafora',
     ctaSecondary: 'Shop Collection',
     bottle: '/images/hero-zafora.webp',
-    glow: 'rgba(214,183,124,0.35)',
-    particleColor: '#D6B77C',
+    glow: 'rgba(184,154,106,0.35)',
+    particleColor: '#B89A6A',
     splashFilter: 'none',
     photo: true,
   },
@@ -43,8 +43,8 @@ const SLIDES: Slide[] = [
     ctaPrimary: 'Explore Collection',
     ctaSecondary: 'Discover Your Scent',
     bottle: '/images/hero-bottle-eclipse.svg',
-    glow: 'rgba(214,183,124,0.4)',
-    particleColor: '#D6B77C',
+    glow: 'rgba(184,154,106,0.4)',
+    particleColor: '#B89A6A',
     splashFilter: 'none',
   },
   {
@@ -56,8 +56,8 @@ const SLIDES: Slide[] = [
     ctaPrimary: 'Explore Collection',
     ctaSecondary: 'Discover Your Scent',
     bottle: '/images/hero-bottle-signature.svg',
-    glow: 'rgba(214,183,124,0.45)',
-    particleColor: '#D6B77C',
+    glow: 'rgba(184,154,106,0.45)',
+    particleColor: '#B89A6A',
     splashFilter: 'none',
   },
   {
@@ -69,8 +69,8 @@ const SLIDES: Slide[] = [
     ctaPrimary: 'Explore Collection',
     ctaSecondary: 'Discover Your Scent',
     bottle: '/images/hero-bottle-midnight.svg',
-    glow: 'rgba(90,80,180,0.35)',
-    particleColor: '#8F8CD9',
+    glow: 'rgba(107,85,67,0.35)',
+    particleColor: '#6B5543',
     splashFilter: 'hue-rotate(140deg) saturate(1.1)',
   },
   {
@@ -82,8 +82,8 @@ const SLIDES: Slide[] = [
     ctaPrimary: 'Explore Collection',
     ctaSecondary: 'Discover Your Scent',
     bottle: '/images/hero-bottle-essence.svg',
-    glow: 'rgba(216,176,154,0.45)',
-    particleColor: '#D8B09A',
+    glow: 'rgba(176,152,120,0.45)',
+    particleColor: '#B09878',
     splashFilter: 'hue-rotate(320deg) saturate(1.1)',
   },
 ];
@@ -267,7 +267,7 @@ export default function Hero() {
                 />
                 <Particles color={slide.particleColor} count={reducedMotion ? 0 : isTouch ? 6 : 10} />
                 <motion.div
-                  className="relative w-[82%] sm:w-[72%] lg:w-[68%] aspect-[4/5] rounded-sm overflow-hidden border border-champagne/25 shadow-[0_40px_90px_rgba(58,44,37,0.25)]"
+                  className="relative w-[82%] sm:w-[72%] lg:w-[68%] aspect-[4/5] rounded-sm overflow-hidden border border-champagne/25 shadow-[0_40px_90px_rgba(63,51,42,0.25)]"
                   style={{
                     transform: `perspective(1400px) rotateY(${tilt.x * 0.6}deg) rotateX(${tilt.y * 0.5}deg)`,
                     transition: 'transform 0.4s cubic-bezier(0.16,1,0.3,1)',
@@ -325,7 +325,7 @@ export default function Hero() {
                 <motion.img
                   src={slide.bottle}
                   alt={`NB Classic Scents ${slide.collection} collection perfume bottle`}
-                  className="relative z-10 h-[78%] sm:h-[82%] w-auto mb-[6%] sm:mb-[7%] drop-shadow-[0_30px_60px_rgba(58,44,37,0.35)]"
+                  className="relative z-10 h-[78%] sm:h-[82%] w-auto mb-[6%] sm:mb-[7%] drop-shadow-[0_30px_60px_rgba(63,51,42,0.35)]"
                   style={{
                     transform: `perspective(1200px) rotateY(${tilt.x}deg) rotateX(${tilt.y}deg)`,
                     transition: 'transform 0.4s cubic-bezier(0.16,1,0.3,1)',
@@ -362,7 +362,7 @@ export default function Hero() {
               className="h-1.5 rounded-full transition-all duration-500"
               style={{
                 width: i === index ? 28 : 8,
-                backgroundColor: i === index ? '#D6B77C' : 'rgba(58,44,37,0.22)',
+                backgroundColor: i === index ? '#B89A6A' : 'rgba(63,51,42,0.22)',
               }}
             />
           ))}

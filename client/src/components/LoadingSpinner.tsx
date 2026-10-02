@@ -14,7 +14,7 @@ export default function LoadingSpinner({
     <div className="flex flex-col items-center justify-center gap-3 py-10" role="status">
       <div
         className={`${dims} rounded-full border-2 border-champagne/25 border-t-champagne animate-spin`}
-        style={{ borderTopColor: dark ? '#0D1B2E' : undefined }}
+        style={{ borderTopColor: dark ? '#3F332A' : undefined }}
       />
       <span className={`text-xs tracking-[0.2em] uppercase ${dark ? 'text-cocoa/60' : 'text-ivory/60'}`}>{label}</span>
     </div>

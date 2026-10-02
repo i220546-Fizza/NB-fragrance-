@@ -52,9 +52,9 @@ export default function NotesDiagram({
 }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-4 py-4">
-      <NoteCard label="Top" notes={topNotes} radius={88} accent="#D6B77C" />
-      <NoteCard label="Heart" notes={heartNotes} radius={104} accent="#C9A96E" />
-      <NoteCard label="Base" notes={baseNotes} radius={120} accent="#3A2C25" />
+      <NoteCard label="Top" notes={topNotes} radius={88} accent="#B89A6A" />
+      <NoteCard label="Heart" notes={heartNotes} radius={104} accent="#B89A6A" />
+      <NoteCard label="Base" notes={baseNotes} radius={120} accent="#3F332A" />
     </div>
   );
 }
