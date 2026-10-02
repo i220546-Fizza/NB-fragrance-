@@ -57,7 +57,7 @@ export default function Navbar() {
     >
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 md:h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 shrink-0" aria-label="NB Classic Scents home">
-          <img src="/images/logo-mark.svg" alt="NB Classic Scents logo" className="h-9 md:h-10 w-auto" />
+          <img src="/images/logo-mark.svg" alt="NB Classic Scents logo" className="h-11 sm:h-12 md:h-16 w-auto" />
         </Link>
 
         <ul className="hidden lg:flex items-center gap-9">
@@ -192,7 +192,7 @@ export default function Navbar() {
             className="fixed inset-0 bg-offwhite z-[60] flex flex-col lg:hidden"
           >
             <div className="flex items-center justify-between h-16 px-4 sm:px-6">
-              <img src="/images/logo-mark.svg" alt="NB Classic Scents logo" className="h-9" />
+              <img src="/images/logo-mark.svg" alt="NB Classic Scents logo" className="h-11" />
               <button aria-label="Close menu" onClick={() => setMobileOpen(false)} className="h-9 w-9 flex items-center justify-center text-cocoa">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                   <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
