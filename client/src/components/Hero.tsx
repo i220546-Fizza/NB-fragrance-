@@ -84,6 +84,7 @@ export default function Hero() {
         return {
           ...s,
           bottle: override.image || s.bottle,
+          headline: override.headline || s.headline,
           description: override.description || s.description,
           photo: override.image ? true : s.photo,
         };

@@ -1,30 +1,30 @@
 const asyncHandler = require('express-async-handler');
 const HeroSlide = require('../models/HeroSlide');
 
-// @desc    Get admin overrides (image and/or description) per slide
+// @desc    Get admin overrides (image, headline and/or description) per slide
 // @route   GET /api/hero-slides
 // @access  Public
 const getHeroSlides = asyncHandler(async (req, res) => {
   const slides = await HeroSlide.find({});
   const map = {};
   slides.forEach((s) => {
-    map[s.key] = {
-      ...(s.image ? { image: s.image } : {}),
-      ...(s.description ? { description: s.description } : {}),
-    };
+    const override = {};
+    HeroSlide.FIELDS.forEach((field) => {
+      if (s[field]) override[field] = s[field];
+    });
+    map[s.key] = override;
   });
   res.json({ success: true, slides: map });
 });
 
-// @desc    Set (or update) the image and/or description for one homepage
-//          hero slide. Only the fields present in the body are changed -
-//          e.g. sending just { description } leaves an existing image
-//          override untouched.
+// @desc    Set (or update) the image, headline and/or description for one
+//          homepage hero slide. Only the fields present in the body are
+//          changed - e.g. sending just { description } leaves an existing
+//          image override untouched.
 // @route   PUT /api/hero-slides/:key
 // @access  Private/Admin
 const updateHeroSlide = asyncHandler(async (req, res) => {
   const { key } = req.params;
-  const { image, description } = req.body;
 
   if (!HeroSlide.KEYS.includes(key)) {
     res.status(400);
@@ -32,24 +32,19 @@ const updateHeroSlide = asyncHandler(async (req, res) => {
   }
 
   const updates = {};
-  if (image !== undefined) {
-    if (!image || typeof image !== 'string') {
+  HeroSlide.FIELDS.forEach((field) => {
+    const value = req.body[field];
+    if (value === undefined) return;
+    if (!value || typeof value !== 'string') {
       res.status(400);
-      throw new Error('image must be a non-empty string');
+      throw new Error(`${field} must be a non-empty string`);
     }
-    updates.image = image;
-  }
-  if (description !== undefined) {
-    if (!description || typeof description !== 'string') {
-      res.status(400);
-      throw new Error('description must be a non-empty string');
-    }
-    updates.description = description;
-  }
+    updates[field] = value;
+  });
 
   if (Object.keys(updates).length === 0) {
     res.status(400);
-    throw new Error('At least one of image or description is required');
+    throw new Error(`At least one of ${HeroSlide.FIELDS.join(', ')} is required`);
   }
 
   const slide = await HeroSlide.findOneAndUpdate(
@@ -61,9 +56,9 @@ const updateHeroSlide = asyncHandler(async (req, res) => {
   res.json({ success: true, slide });
 });
 
-// @desc    Remove one field (image or description) of a slide's override,
-//          reverting just that field to the site default. If the slide has
-//          no override left afterwards, its document is removed entirely.
+// @desc    Remove one field (image, headline or description) of a slide's
+//          override, reverting just that field to the site default. If the
+//          slide has no override left afterwards, its document is removed.
 // @route   DELETE /api/hero-slides/:key/:field
 // @access  Private/Admin
 const deleteHeroSlideField = asyncHandler(async (req, res) => {
@@ -80,7 +75,7 @@ const deleteHeroSlideField = asyncHandler(async (req, res) => {
 
   const slide = await HeroSlide.findOneAndUpdate({ key }, { $unset: { [field]: 1 } }, { new: true });
 
-  if (slide && !slide.image && !slide.description) {
+  if (slide && HeroSlide.FIELDS.every((f) => !slide[f])) {
     await HeroSlide.deleteOne({ key });
   }
 

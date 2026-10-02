@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { HERO_SLIDES } from '../../data/heroSlides';
-import { heroSlideService, type HeroSlideOverride } from '../../services/heroSlideService';
+import { heroSlideService, type HeroSlideField, type HeroSlideOverride } from '../../services/heroSlideService';
 import { uploadService } from '../../services/uploadService';
 import { getApiErrorMessage } from '../../services/api';
 import { usePageMeta } from '../../utils/usePageMeta';
@@ -105,36 +105,44 @@ function PhotoField({
   );
 }
 
-function DescriptionField({
+function TextField({
   slideKey,
-  label,
-  defaultDescription,
-  currentDescription,
+  slideLabel,
+  field,
+  fieldLabel,
+  helperText,
+  multiline,
+  defaultValue,
+  currentValue,
   onChange,
 }: {
   slideKey: string;
-  label: string;
-  defaultDescription: string;
-  currentDescription?: string;
-  onChange: (key: string, description: string | null) => void;
+  slideLabel: string;
+  field: HeroSlideField;
+  fieldLabel: string;
+  helperText: string;
+  multiline?: boolean;
+  defaultValue: string;
+  currentValue?: string;
+  onChange: (key: string, field: HeroSlideField, value: string | null) => void;
 }) {
   const { showToast } = useToast();
-  const [draft, setDraft] = useState(currentDescription ?? defaultDescription);
+  const [draft, setDraft] = useState(currentValue ?? defaultValue);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const isCustom = Boolean(currentDescription);
-  const activeText = currentDescription ?? defaultDescription;
+  const isCustom = Boolean(currentValue);
+  const activeText = currentValue ?? defaultValue;
   const isDirty = draft.trim() !== '' && draft !== activeText;
 
   const save = async () => {
     setSaving(true);
     setError(null);
     try {
-      const updated = await heroSlideService.update(slideKey, { description: draft.trim() });
-      onChange(slideKey, updated.description ?? draft.trim());
-      showToast(`${label} description updated.`);
+      const updated = await heroSlideService.update(slideKey, { [field]: draft.trim() });
+      onChange(slideKey, field, updated[field] ?? draft.trim());
+      showToast(`${slideLabel} ${fieldLabel.toLowerCase()} updated.`);
     } catch (err) {
-      setError(getApiErrorMessage(err, 'Unable to save this description.'));
+      setError(getApiErrorMessage(err, `Unable to save this ${fieldLabel.toLowerCase()}.`));
     } finally {
       setSaving(false);
     }
@@ -144,21 +152,23 @@ function DescriptionField({
     setSaving(true);
     setError(null);
     try {
-      await heroSlideService.remove(slideKey, 'description');
-      setDraft(defaultDescription);
-      onChange(slideKey, null);
-      showToast(`${label} description reverted to the default.`);
+      await heroSlideService.remove(slideKey, field);
+      setDraft(defaultValue);
+      onChange(slideKey, field, null);
+      showToast(`${slideLabel} ${fieldLabel.toLowerCase()} reverted to the default.`);
     } catch (err) {
-      setError(getApiErrorMessage(err, 'Unable to reset this description.'));
+      setError(getApiErrorMessage(err, `Unable to reset this ${fieldLabel.toLowerCase()}.`));
     } finally {
       setSaving(false);
     }
   };
 
+  const InputTag = multiline ? 'textarea' : 'input';
+
   return (
     <div className="pt-5 mt-5 border-t border-cocoa/10">
       <div className="flex items-center gap-2.5 flex-wrap">
-        <h4 className="text-xs uppercase tracking-wide text-cocoa/70">Description</h4>
+        <h4 className="text-xs uppercase tracking-wide text-cocoa/70">{fieldLabel}</h4>
         <span
           className={`text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wide ${
             isCustom ? 'bg-champagne/15 text-cocoa' : 'bg-cocoa/5 text-cocoa/50'
@@ -167,15 +177,13 @@ function DescriptionField({
           {isCustom ? 'Custom text' : 'Default text'}
         </span>
       </div>
-      <p className="text-xs text-cocoa/50 mt-1.5">
-        The body copy shown under this slide&rsquo;s headline on the homepage.
-      </p>
+      <p className="text-xs text-cocoa/50 mt-1.5">{helperText}</p>
 
-      <textarea
+      <InputTag
         value={draft}
         onChange={(e) => setDraft(e.target.value)}
         disabled={saving}
-        rows={3}
+        rows={multiline ? 3 : undefined}
         className="input-field mt-3 w-full text-sm resize-y"
       />
 
@@ -186,7 +194,7 @@ function DescriptionField({
           disabled={saving || !isDirty}
           className="btn-outline-dark text-[11px] px-4 py-2 disabled:opacity-40"
         >
-          Save Description
+          Save {fieldLabel}
         </button>
         {isCustom && (
           <button
@@ -206,7 +214,7 @@ function DescriptionField({
 }
 
 export default function AdminHomepage() {
-  usePageMeta('Homepage', 'Manage the NB Classic Scents homepage hero photos and description text.');
+  usePageMeta('Homepage', 'Manage the NB Classic Scents homepage hero photos, names and description text.');
   const [overrides, setOverrides] = useState<Record<string, HeroSlideOverride>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -224,17 +232,18 @@ export default function AdminHomepage() {
       const next = { ...prev, [key]: { ...prev[key] } };
       if (image) next[key].image = image;
       else delete next[key].image;
-      if (!next[key].image && !next[key].description) delete next[key];
+      if (!next[key].image && !next[key].headline && !next[key].description) delete next[key];
       return next;
     });
   };
 
-  const handleDescriptionChange = (key: string, description: string | null) => {
+  const handleTextChange = (key: string, field: HeroSlideField, value: string | null) => {
+    if (field === 'image') return;
     setOverrides((prev) => {
       const next = { ...prev, [key]: { ...prev[key] } };
-      if (description) next[key].description = description;
-      else delete next[key].description;
-      if (!next[key].image && !next[key].description) delete next[key];
+      if (value) next[key][field] = value;
+      else delete next[key][field];
+      if (!next[key].image && !next[key].headline && !next[key].description) delete next[key];
       return next;
     });
   };
@@ -245,7 +254,7 @@ export default function AdminHomepage() {
     <div className="max-w-3xl">
       <h1 className="font-display text-2xl md:text-3xl text-cocoa mb-2">Homepage</h1>
       <p className="text-sm text-cocoa/60 mb-8">
-        Replace the photo and/or description shown for each hero carousel slide on the homepage. For Eclipse,
+        Replace the photo, name and/or description shown for each hero carousel slide on the homepage. For Eclipse,
         Signature, Midnight and Essence, the same photo also replaces that collection&rsquo;s tile further down the
         homepage. Sizes, wording elsewhere, and the rest of the site are unaffected.
       </p>
@@ -263,12 +272,26 @@ export default function AdminHomepage() {
               currentImage={overrides[s.key]?.image}
               onChange={handleImageChange}
             />
-            <DescriptionField
+            <TextField
               slideKey={s.key}
-              label={s.collection}
-              defaultDescription={s.description}
-              currentDescription={overrides[s.key]?.description}
-              onChange={handleDescriptionChange}
+              slideLabel={s.collection}
+              field="headline"
+              fieldLabel="Name"
+              helperText="The large perfume name shown on this hero slide."
+              defaultValue={s.headline}
+              currentValue={overrides[s.key]?.headline}
+              onChange={handleTextChange}
+            />
+            <TextField
+              slideKey={s.key}
+              slideLabel={s.collection}
+              field="description"
+              fieldLabel="Description"
+              helperText="The body copy shown under this slide's headline on the homepage."
+              multiline
+              defaultValue={s.description}
+              currentValue={overrides[s.key]?.description}
+              onChange={handleTextChange}
             />
           </div>
         ))}
