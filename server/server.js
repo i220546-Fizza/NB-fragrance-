@@ -16,6 +16,7 @@ const orderRoutes = require('./routes/orderRoutes');
 const userRoutes = require('./routes/userRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const heroSlideRoutes = require('./routes/heroSlideRoutes');
 
 const app = express();
 
@@ -48,6 +49,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/uploads', uploadRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/hero-slides', heroSlideRoutes);
 
 // Error handling middleware (must be last)
 app.use(notFound);

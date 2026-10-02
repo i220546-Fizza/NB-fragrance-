@@ -25,6 +25,7 @@ import NotFound from './pages/NotFound';
 
 const AdminLayout = lazy(() => import('./layouts/AdminLayout'));
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
+const AdminHomepage = lazy(() => import('./pages/admin/AdminHomepage'));
 const AdminProducts = lazy(() => import('./pages/admin/AdminProducts'));
 const AdminProductForm = lazy(() => import('./pages/admin/AdminProductForm'));
 const AdminOrders = lazy(() => import('./pages/admin/AdminOrders'));
@@ -97,6 +98,14 @@ export default function App() {
             element={
               <Suspense fallback={<AdminFallback />}>
                 <AdminDashboard />
+              </Suspense>
+            }
+          />
+          <Route
+            path="homepage"
+            element={
+              <Suspense fallback={<AdminFallback />}>
+                <AdminHomepage />
               </Suspense>
             }
           />

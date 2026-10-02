@@ -1,92 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-
-interface Slide {
-  key: string;
-  collection: string;
-  headline: string;
-  tagline: string;
-  description: string;
-  ctaPrimary: string;
-  ctaSecondary: string;
-  bottle: string;
-  glow: string;
-  particleColor: string;
-  splashFilter: string;
-  /** Real campaign photography instead of the illustrated bottle + pedestal composite. */
-  photo?: boolean;
-}
-
-const SLIDES: Slide[] = [
-  {
-    key: 'zafora',
-    collection: 'Zafora',
-    headline: 'Zafora',
-    tagline: 'Crafted for the Senses.',
-    description:
-      'A sophisticated fragrance that captures warmth, light and quiet confidence in every note — composed for those who leave a lasting impression.',
-    ctaPrimary: 'Explore Zafora',
-    ctaSecondary: 'Shop Collection',
-    bottle: '/images/hero-zafora.webp',
-    glow: 'rgba(184,154,106,0.35)',
-    particleColor: '#B89A6A',
-    splashFilter: 'none',
-    photo: true,
-  },
-  {
-    key: 'eclipse',
-    collection: 'Eclipse',
-    headline: 'Eclipsed in Mystery, Radiant in Presence.',
-    tagline: 'Unveil the essence of mystery and radiance.',
-    description: 'Deep, warm and unmistakably bold — the Eclipse collection for those who command a room.',
-    ctaPrimary: 'Explore Collection',
-    ctaSecondary: 'Discover Your Scent',
-    bottle: '/images/hero-bottle-eclipse.svg',
-    glow: 'rgba(184,154,106,0.4)',
-    particleColor: '#B89A6A',
-    splashFilter: 'none',
-  },
-  {
-    key: 'signature',
-    collection: 'Signature',
-    headline: 'A Signature Scent. A Lasting Impression.',
-    tagline: 'Your scent. Your identity.',
-    description: 'Elegant, timeless and entirely yours — a fragrance composed to become your signature.',
-    ctaPrimary: 'Explore Collection',
-    ctaSecondary: 'Discover Your Scent',
-    bottle: '/images/hero-bottle-signature.svg',
-    glow: 'rgba(184,154,106,0.45)',
-    particleColor: '#B89A6A',
-    splashFilter: 'none',
-  },
-  {
-    key: 'midnight',
-    collection: 'Midnight',
-    headline: 'Made for Unforgettable Nights.',
-    tagline: 'Made for unforgettable nights.',
-    description: 'Sensual and enveloping — the Midnight collection lingers long after the night ends.',
-    ctaPrimary: 'Explore Collection',
-    ctaSecondary: 'Discover Your Scent',
-    bottle: '/images/hero-bottle-midnight.svg',
-    glow: 'rgba(107,85,67,0.35)',
-    particleColor: '#6B5543',
-    splashFilter: 'hue-rotate(140deg) saturate(1.1)',
-  },
-  {
-    key: 'essence',
-    collection: 'Essence',
-    headline: 'Discover Your Signature.',
-    tagline: 'Discover your signature.',
-    description: 'Pure, understated and quietly confident — a fragrance for those who favor discovery over declaration.',
-    ctaPrimary: 'Explore Collection',
-    ctaSecondary: 'Discover Your Scent',
-    bottle: '/images/hero-bottle-essence.svg',
-    glow: 'rgba(176,152,120,0.45)',
-    particleColor: '#B09878',
-    splashFilter: 'hue-rotate(320deg) saturate(1.1)',
-  },
-];
+import { HERO_SLIDES } from '../data/heroSlides';
+import { heroSlideService } from '../services/heroSlideService';
 
 const AUTO_ADVANCE_MS = 6000;
 
@@ -142,21 +58,43 @@ export default function Hero() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [overrides, setOverrides] = useState<Record<string, string>>({});
   const containerRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
   const isTouch = typeof window !== 'undefined' && 'ontouchstart' in window;
 
-  const slide = SLIDES[index];
+  useEffect(() => {
+    heroSlideService
+      .getAll()
+      .then(setOverrides)
+      .catch(() => {
+        /* keep the bundled defaults if this fails */
+      });
+  }, []);
+
+  // An admin-uploaded photo replaces the slide's default artwork and is
+  // always shown with the real-photography treatment (framed panel + Ken
+  // Burns zoom) rather than the illustrated bottle/pedestal/ribbon composite.
+  const slides = useMemo(
+    () =>
+      HERO_SLIDES.map((s) => {
+        const override = overrides[s.key];
+        return override ? { ...s, bottle: override, photo: true } : s;
+      }),
+    [overrides]
+  );
+
+  const slide = slides[index];
 
   useEffect(() => {
     if (paused || reducedMotion) return;
     const id = window.setInterval(() => {
-      setIndex((i) => (i + 1) % SLIDES.length);
+      setIndex((i) => (i + 1) % slides.length);
     }, AUTO_ADVANCE_MS);
     return () => window.clearInterval(id);
-  }, [paused, reducedMotion]);
+  }, [paused, reducedMotion, slides.length]);
 
-  const goTo = useCallback((i: number) => setIndex((i + SLIDES.length) % SLIDES.length), []);
+  const goTo = useCallback((i: number) => setIndex((i + slides.length) % slides.length), [slides.length]);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -353,7 +291,7 @@ export default function Hero() {
           </svg>
         </button>
         <div className="flex items-center gap-2.5">
-          {SLIDES.map((s, i) => (
+          {slides.map((s, i) => (
             <button
               key={s.key}
               aria-label={`Show ${s.collection} collection slide`}
