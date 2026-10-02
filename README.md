@@ -149,9 +149,12 @@ This repo deploys as a **single Render Web Service** — one build produces the 
    | `ADMIN_NAME` | your choice |
    | `ADMIN_EMAIL` | your choice |
    | `ADMIN_PASSWORD` | a strong password — **not** the `.env.example` default |
+   | `CLOUDINARY_CLOUD_NAME` | from your Cloudinary dashboard — see note below |
+   | `CLOUDINARY_API_KEY` | from your Cloudinary dashboard |
+   | `CLOUDINARY_API_SECRET` | from your Cloudinary dashboard |
 
    `PORT` is set automatically by Render; `CLIENT_URL` isn't needed since the frontend is served from the same origin.
 6. Deploy. Render builds both folders and starts the server, which serves the site at the `onrender.com` URL it gives you.
 7. Seed the database once, from your own machine (Render's free plan has no shell access): point a local `.env` at the same `MONGO_URI` and run `npm run seed` from `server/` — this creates the admin account and the 20 sample fragrances.
 
-**⚠️ Admin-uploaded images don't persist.** `server/uploads/` and the `HeroSlide`/product-image uploads built in this project write to local disk. Render's filesystem is **ephemeral** — anything written there is wiped on every redeploy and periodically on restart. The 20 seeded SVG products and bundled hero artwork are unaffected (they're committed to the repo), but any photo an admin uploads through **Admin → Products** or **Admin → Homepage** after deploying will eventually disappear. For durable uploads, wire the existing `server/controllers/uploadController.js` to an object store (Cloudinary's free tier is the least code to add) or attach a [Render Disk](https://render.com/docs/disks) (paid) mounted at `server/uploads`. Ask if you'd like this wired in — it isn't done yet.
+**Admin-uploaded images and Render's ephemeral disk.** Render's filesystem is wiped on every redeploy and periodically on restart, so anything an admin uploads through **Admin → Products** or **Admin → Homepage** would normally disappear after the service cycles. This is already handled: `server/controllers/uploadController.js` streams uploads straight to [Cloudinary](https://cloudinary.com) whenever `CLOUDINARY_CLOUD_NAME`/`CLOUDINARY_API_KEY`/`CLOUDINARY_API_SECRET` are set, so the returned URLs point at Cloudinary's permanent storage instead of local disk. Sign up for Cloudinary's free tier, copy the three values from its dashboard into Render's env vars above, and uploads will persist. Leave those three blank and uploads fall back to local disk exactly as before (fine for local dev, **not** fine on Render). The 20 seeded SVG products and bundled hero artwork are unaffected either way since they're committed to the repo.
