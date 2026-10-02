@@ -72,7 +72,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="pt-16 md:pt-20 min-h-[80vh] bg-warm-cream">
+    <div className="pt-16 md:pt-20 min-h-[80vh] bg-offwhite">
       <div className="max-w-5xl mx-auto px-6 py-12">
         <h1 className="section-heading text-cocoa mb-8">My Account</h1>
 

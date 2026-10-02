@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 export default function LoadingScreen({ visible }: { visible: boolean }) {
   return (
     <motion.div
-      className="fixed inset-0 z-[300] flex flex-col items-center justify-center bg-midnight-navy"
+      className="fixed inset-0 z-[300] flex flex-col items-center justify-center bg-offwhite"
       initial={{ opacity: 1 }}
       animate={{ opacity: visible ? 1 : 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -22,7 +22,7 @@ export default function LoadingScreen({ visible }: { visible: boolean }) {
           NB
         </motion.span>
         <motion.span
-          className="relative mt-3 text-ivory/80 text-xs md:text-sm tracking-[0.5em] uppercase"
+          className="relative mt-3 text-cocoa/70 text-xs md:text-sm tracking-[0.5em] uppercase"
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}

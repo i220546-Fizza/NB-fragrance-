@@ -19,7 +19,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="bg-warm-beige/40 py-16 md:py-24">
+    <section className="bg-offwhite py-16 md:py-24 border-t border-cocoa/5">
       <div className="max-w-6xl mx-auto px-6">
         <Reveal className="text-center mb-12">
           <span className="eyebrow text-champagne/90">Voices of NB</span>

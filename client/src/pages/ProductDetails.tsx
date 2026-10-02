@@ -118,12 +118,12 @@ export default function ProductDetails() {
 
   return (
     <div className="pt-16 md:pt-20">
-      <section className="bg-midnight-navy">
+      <section className="bg-offwhite">
         <div className="max-w-7xl mx-auto px-6 py-10 md:py-16 grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* gallery */}
           <div>
             <div
-              className="relative aspect-square rounded-sm overflow-hidden bg-deep-navy cursor-zoom-in"
+              className="relative aspect-square rounded-sm overflow-hidden bg-white border border-cocoa/10 cursor-zoom-in"
               onMouseMove={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
                 setZoom({ active: true, x: ((e.clientX - rect.left) / rect.width) * 100, y: ((e.clientY - rect.top) / rect.height) * 100 });
@@ -159,23 +159,23 @@ export default function ProductDetails() {
           </div>
 
           {/* info */}
-          <div className="text-ivory">
+          <div className="text-cocoa">
             <span className="text-[11px] tracking-[0.2em] uppercase text-champagne">{product.collectionName} &middot; {product.gender}</span>
             <h1 className="font-display text-3xl md:text-4xl mt-2">{product.name}</h1>
             <div className="flex items-center gap-2 mt-3">
               <StarRating rating={product.rating} size={15} />
-              <span className="text-xs text-ivory/50">{product.numReviews} reviews</span>
+              <span className="text-xs text-cocoa/50">{product.numReviews} reviews</span>
             </div>
             <p className="font-display text-2xl text-champagne mt-5">{formatCurrency(product.price)}</p>
-            <p className="text-ivory/65 leading-relaxed mt-5 max-w-lg">{product.description}</p>
+            <p className="text-cocoa/65 leading-relaxed mt-5 max-w-lg">{product.description}</p>
 
-            <div className="flex flex-wrap gap-4 mt-6 text-sm text-ivory/70">
-              <span>Size: <strong className="text-ivory">{product.size}</strong></span>
-              <span>Longevity: <strong className="text-ivory">{product.longevity}</strong></span>
-              <span>Sillage: <strong className="text-ivory">{product.sillage}</strong></span>
+            <div className="flex flex-wrap gap-4 mt-6 text-sm text-cocoa/70">
+              <span>Size: <strong className="text-cocoa">{product.size}</strong></span>
+              <span>Longevity: <strong className="text-cocoa">{product.longevity}</strong></span>
+              <span>Sillage: <strong className="text-cocoa">{product.sillage}</strong></span>
               <span>
                 Stock:{' '}
-                <strong className={product.stock > 0 ? 'text-ivory' : 'text-rose-champagne'}>
+                <strong className={product.stock > 0 ? 'text-cocoa' : 'text-rose-champagne'}>
                   {product.stock > 0 ? `${product.stock} available` : 'Out of stock'}
                 </strong>
               </span>
@@ -185,7 +185,7 @@ export default function ProductDetails() {
               {product.occasion?.length > 0 && (
                 <div className="flex flex-wrap gap-1.5">
                   {product.occasion.map((o) => (
-                    <span key={o} className="text-[11px] px-2.5 py-1 rounded-full border border-champagne/30 text-ivory/70">
+                    <span key={o} className="text-[11px] px-2.5 py-1 rounded-full border border-champagne/30 text-cocoa/70">
                       {o}
                     </span>
                   ))}
@@ -194,7 +194,7 @@ export default function ProductDetails() {
               {product.season?.length > 0 && (
                 <div className="flex flex-wrap gap-1.5">
                   {product.season.map((s) => (
-                    <span key={s} className="text-[11px] px-2.5 py-1 rounded-full border border-rose-champagne/30 text-ivory/70">
+                    <span key={s} className="text-[11px] px-2.5 py-1 rounded-full border border-rose-champagne/30 text-cocoa/70">
                       {s}
                     </span>
                   ))}
@@ -210,7 +210,7 @@ export default function ProductDetails() {
                   addItem(product, qty);
                   showToast('Added to your collection.');
                 }}
-                className="btn-outline flex-1 disabled:opacity-40"
+                className="btn-outline-dark flex-1 disabled:opacity-40"
               >
                 Add to Cart
               </button>
@@ -228,7 +228,7 @@ export default function ProductDetails() {
                 onClick={() => toggle(product)}
                 aria-label={wished ? 'Remove from wishlist' : 'Add to wishlist'}
                 className={`h-12 w-12 shrink-0 rounded-sm border flex items-center justify-center transition-colors ${
-                  wished ? 'border-champagne bg-champagne/10' : 'border-ivory/25 hover:border-champagne'
+                  wished ? 'border-champagne bg-champagne/10' : 'border-cocoa/20 hover:border-champagne'
                 }`}
               >
                 <svg width="19" height="19" viewBox="0 0 24 24" fill={wished ? '#D6B77C' : 'none'} stroke="#D6B77C" strokeWidth="1.4">
@@ -241,7 +241,7 @@ export default function ProductDetails() {
       </section>
 
       {/* notes */}
-      <section className="bg-ivory py-14 md:py-20">
+      <section className="bg-offwhite py-14 md:py-20 border-t border-cocoa/5">
         <div className="max-w-5xl mx-auto px-6">
           <Reveal className="text-center mb-8">
             <span className="eyebrow text-champagne/90">The Composition</span>
@@ -252,7 +252,7 @@ export default function ProductDetails() {
       </section>
 
       {/* reviews */}
-      <section className="bg-warm-cream py-14 md:py-20">
+      <section className="bg-offwhite py-14 md:py-20 border-t border-cocoa/5">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="section-heading text-cocoa mb-8">Reviews ({product.numReviews})</h2>
 
@@ -310,7 +310,7 @@ export default function ProductDetails() {
 
       {/* related */}
       {related.length > 0 && (
-        <section className="bg-ivory py-14 md:py-20">
+        <section className="bg-offwhite py-14 md:py-20 border-t border-cocoa/5">
           <div className="max-w-7xl mx-auto px-6">
             <h2 className="section-heading text-cocoa mb-8">You May Also Love</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">

@@ -32,7 +32,7 @@ const AdminOrderDetails = lazy(() => import('./pages/admin/AdminOrderDetails'));
 
 function AdminFallback() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-warm-cream">
+    <div className="min-h-screen flex items-center justify-center bg-offwhite">
       <LoadingSpinner label="Loading admin panel" dark />
     </div>
   );

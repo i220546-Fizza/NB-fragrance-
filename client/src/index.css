@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  --nb-offwhite: #faf8f5;
   --nb-midnight-navy: #07111f;
   --nb-deep-navy: #0d1b2e;
   --nb-ivory: #f8f4ec;
@@ -34,7 +35,7 @@ html {
 }
 
 body {
-  background-color: var(--nb-ivory);
+  background-color: var(--nb-offwhite);
   color: var(--nb-espresso);
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;

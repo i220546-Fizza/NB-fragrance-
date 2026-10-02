@@ -46,7 +46,7 @@ export default function OrderConfirmation() {
 
   return (
     <div className="pt-16 md:pt-20 min-h-[80vh]">
-      <div className="bg-midnight-navy py-14 md:py-20">
+      <div className="bg-offwhite py-14 md:py-20">
         <div className="max-w-2xl mx-auto px-6 text-center">
           <motion.div
             initial={{ scale: 0.6, opacity: 0 }}
@@ -78,7 +78,7 @@ export default function OrderConfirmation() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="section-heading text-ivory mt-6"
+            className="section-heading text-cocoa mt-6"
           >
             Thank You for Your Order
           </motion.h1>
@@ -86,7 +86,7 @@ export default function OrderConfirmation() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="text-ivory/60 mt-3"
+            className="text-cocoa/60 mt-3"
           >
             A confirmation has been recorded. Your fragrance is being prepared for delivery.
           </motion.p>

@@ -5,6 +5,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        offwhite: '#FAF8F5',
         'midnight-navy': '#07111F',
         'deep-navy': '#0D1B2E',
         ivory: '#F8F4EC',

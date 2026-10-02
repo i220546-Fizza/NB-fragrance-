@@ -7,21 +7,21 @@ export default function About() {
   usePageMeta('About Us', 'The story behind NB Classic Scents — small-batch fragrances crafted to define presence.');
   return (
     <div className="pt-16 md:pt-20">
-      <section className="relative bg-midnight-navy overflow-hidden">
+      <section className="relative bg-offwhite overflow-hidden">
         <img
           src="/images/about-campaign.svg"
-          alt="Abstract campaign artwork featuring an NB Classic Scents bottle silhouette on deep navy"
+          alt="Abstract campaign artwork featuring an NB Classic Scents bottle silhouette"
           className="absolute inset-0 w-full h-full object-cover opacity-90"
         />
         <div className="relative max-w-4xl mx-auto px-6 py-24 md:py-32 text-center">
           <span className="eyebrow text-champagne">Our Story</span>
-          <h1 className="font-display text-4xl md:text-5xl text-ivory mt-4">
+          <h1 className="font-display text-4xl md:text-5xl text-cocoa mt-4">
             Crafted for those who leave a <span className="font-script italic text-champagne">lasting impression</span>.
           </h1>
         </div>
       </section>
 
-      <section className="bg-ivory py-16 md:py-24">
+      <section className="bg-offwhite py-16 md:py-24 border-t border-cocoa/5">
         <div className="max-w-3xl mx-auto px-6 space-y-6 text-cocoa/75 leading-relaxed">
           <Reveal>
             <p>

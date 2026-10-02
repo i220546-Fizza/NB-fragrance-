@@ -16,10 +16,10 @@ export default function Newsletter() {
   };
 
   return (
-    <section className="bg-deep-navy py-16 md:py-20">
+    <section className="bg-offwhite py-16 md:py-20 border-t border-cocoa/5">
       <div className="max-w-3xl mx-auto px-6 text-center">
         <span className="eyebrow text-champagne">Stay In Scent</span>
-        <h2 className="font-display text-2xl md:text-3xl text-ivory mt-3">
+        <h2 className="font-display text-2xl md:text-3xl text-cocoa mt-3">
           Be first to discover new collections and private previews.
         </h2>
         <form onSubmit={submit} className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
@@ -29,7 +29,7 @@ export default function Newsletter() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Your email address"
-            className="w-full sm:w-80 bg-transparent border border-champagne/30 rounded-sm px-4 py-3 text-sm text-ivory placeholder:text-ivory/40 focus:outline-none focus:border-champagne"
+            className="w-full sm:w-80 bg-white border border-cocoa/20 rounded-sm px-4 py-3 text-sm text-cocoa placeholder:text-cocoa/40 focus:outline-none focus:border-champagne"
           />
           <button type="submit" className="btn-primary whitespace-nowrap">
             Subscribe

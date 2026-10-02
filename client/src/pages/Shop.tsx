@@ -123,7 +123,7 @@ export default function Shop() {
 
   return (
     <div className="pt-16 md:pt-20">
-      <div className="bg-warm-cream py-10 md:py-14">
+      <div className="bg-offwhite py-10 md:py-14">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <span className="eyebrow text-champagne/90">The Full Collection</span>
           <h1 className="section-heading text-cocoa mt-3">Shop All Fragrances</h1>
@@ -208,7 +208,7 @@ export default function Shop() {
       {mobileFiltersOpen && (
         <div className="fixed inset-0 z-[100] lg:hidden">
           <div className="absolute inset-0 bg-midnight-navy/60" onClick={() => setMobileFiltersOpen(false)} />
-          <div className="absolute inset-y-0 left-0 w-[85%] max-w-xs bg-ivory overflow-y-auto p-6">
+          <div className="absolute inset-y-0 left-0 w-[85%] max-w-xs bg-offwhite overflow-y-auto p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-display text-lg">Filters</h3>
               <button onClick={() => setMobileFiltersOpen(false)} aria-label="Close filters">

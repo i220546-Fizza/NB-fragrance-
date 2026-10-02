@@ -11,7 +11,7 @@ const collections = [
 
 export default function CollectionGrid() {
   return (
-    <section className="bg-warm-cream py-16 md:py-24">
+    <section className="bg-offwhite py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-6">
         <Reveal className="text-center mb-12">
           <span className="eyebrow text-champagne/90">The Collections</span>
@@ -23,9 +23,8 @@ export default function CollectionGrid() {
             <Reveal key={c.name} delay={i * 0.08}>
               <Link
                 to={`/shop?collection=${encodeURIComponent(c.name)}`}
-                className="group relative flex flex-col items-center bg-midnight-navy rounded-sm overflow-hidden aspect-[3/4] px-4 pt-8 pb-6 hover:shadow-gold transition-shadow duration-500"
+                className="group relative flex flex-col items-center bg-white border border-cocoa/10 rounded-sm overflow-hidden aspect-[3/4] px-4 pt-8 pb-6 hover:shadow-gold-sm hover:border-champagne/40 transition-all duration-500"
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 <img
                   src={c.bottle}
                   alt={`${c.name} collection bottle`}
@@ -33,8 +32,8 @@ export default function CollectionGrid() {
                   loading="lazy"
                 />
                 <div className="relative mt-auto text-center">
-                  <h3 className="font-display text-lg text-ivory">{c.name}</h3>
-                  <p className="text-[11px] text-champagne/80 tracking-wide mt-1">{c.tag}</p>
+                  <h3 className="font-display text-lg text-cocoa">{c.name}</h3>
+                  <p className="text-[11px] text-champagne/90 tracking-wide mt-1">{c.tag}</p>
                 </div>
               </Link>
             </Reveal>

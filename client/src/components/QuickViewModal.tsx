@@ -28,7 +28,7 @@ export default function QuickViewModal({ product, onClose }: { product: Product 
             role="dialog"
             aria-modal="true"
             aria-label={`Quick view of ${product.name}`}
-            className="fixed inset-x-4 top-1/2 sm:inset-x-auto sm:left-1/2 -translate-y-1/2 sm:-translate-x-1/2 z-[120] bg-ivory rounded-sm max-w-2xl w-auto sm:w-full mx-auto grid grid-cols-1 sm:grid-cols-2 overflow-hidden max-h-[85vh]"
+            className="fixed inset-x-4 top-1/2 sm:inset-x-auto sm:left-1/2 -translate-y-1/2 sm:-translate-x-1/2 z-[120] bg-offwhite rounded-sm max-w-2xl w-auto sm:w-full mx-auto grid grid-cols-1 sm:grid-cols-2 overflow-hidden max-h-[85vh]"
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.94 }}

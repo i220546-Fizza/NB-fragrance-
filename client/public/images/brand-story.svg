@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" fill="none">
   <defs>
     <linearGradient id="bsBg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0D1B2E"/>
-      <stop offset="100%" stop-color="#07111F"/>
+      <stop offset="0%" stop-color="#FAF8F5"/>
+      <stop offset="100%" stop-color="#F2E8DA"/>
     </linearGradient>
     <radialGradient id="bsGlow" cx="65%" cy="30%" r="55%">
-      <stop offset="0%" stop-color="#D6B77C" stop-opacity="0.28"/>
+      <stop offset="0%" stop-color="#D6B77C" stop-opacity="0.22"/>
       <stop offset="100%" stop-color="#D6B77C" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="bsLine" x1="0" y1="0" x2="1" y2="0">
@@ -16,13 +16,13 @@
   </defs>
   <rect width="900" height="700" fill="url(#bsBg)"/>
   <rect width="900" height="700" fill="url(#bsGlow)"/>
-  <g opacity="0.5">
-    <ellipse cx="700" cy="230" rx="120" ry="160" fill="none" stroke="#D6B77C" stroke-opacity="0.25" stroke-width="1.5"/>
-    <ellipse cx="700" cy="230" rx="80" ry="110" fill="none" stroke="#D6B77C" stroke-opacity="0.18" stroke-width="1"/>
+  <g opacity="0.6">
+    <ellipse cx="700" cy="230" rx="120" ry="160" fill="none" stroke="#C9A96E" stroke-opacity="0.45" stroke-width="1.5"/>
+    <ellipse cx="700" cy="230" rx="80" ry="110" fill="none" stroke="#C9A96E" stroke-opacity="0.32" stroke-width="1"/>
   </g>
   <line x1="120" y1="500" x2="780" y2="500" stroke="url(#bsLine)" stroke-width="1"/>
-  <circle cx="150" cy="150" r="3" fill="#D6B77C" opacity="0.6"/>
-  <circle cx="220" cy="600" r="2.5" fill="#F2E8DA" opacity="0.5"/>
-  <circle cx="780" cy="600" r="2" fill="#D8B09A" opacity="0.6"/>
-  <circle cx="500" cy="120" r="2" fill="#D6B77C" opacity="0.5"/>
+  <circle cx="150" cy="150" r="3" fill="#C9A96E" opacity="0.7"/>
+  <circle cx="220" cy="600" r="2.5" fill="#3A2C25" opacity="0.35"/>
+  <circle cx="780" cy="600" r="2" fill="#D8B09A" opacity="0.7"/>
+  <circle cx="500" cy="120" r="2" fill="#C9A96E" opacity="0.6"/>
 </svg>

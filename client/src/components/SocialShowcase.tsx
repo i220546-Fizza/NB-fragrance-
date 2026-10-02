@@ -21,11 +21,11 @@ function InstagramIcon({ className }: { className?: string }) {
 
 export default function SocialShowcase() {
   return (
-    <section className="bg-midnight-navy py-16 md:py-24">
+    <section className="bg-offwhite py-16 md:py-24 border-t border-cocoa/5">
       <div className="max-w-7xl mx-auto px-6">
         <Reveal className="text-center mb-10">
           <span className="eyebrow text-champagne">{INSTAGRAM_HANDLE}</span>
-          <h2 className="section-heading text-ivory mt-3">Follow the Journey</h2>
+          <h2 className="section-heading text-cocoa mt-3">Follow the Journey</h2>
         </Reveal>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
           {tiles.map((t, i) => (

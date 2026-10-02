@@ -26,7 +26,7 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="pt-16 md:pt-20 min-h-[80vh] flex items-center bg-warm-cream">
+    <div className="pt-16 md:pt-20 min-h-[80vh] flex items-center bg-offwhite">
       <div className="max-w-md w-full mx-auto px-6 py-16">
         <div className="text-center mb-8">
           <img src="/images/logo-mark.svg" alt="NB Classic Scents" className="h-10 mx-auto mb-6" />
@@ -49,7 +49,7 @@ export default function ForgotPassword() {
           <div className="bg-white border border-cocoa/10 rounded-sm p-7 space-y-4">
             <p className="text-sm text-cocoa/70">{result.message}</p>
             {result.resetUrl && (
-              <div className="bg-warm-cream rounded-sm p-4">
+              <div className="bg-offwhite border border-cocoa/10 rounded-sm p-4">
                 <p className="text-[11px] uppercase tracking-wide text-champagne mb-2">Development Mode &mdash; No Email Server</p>
                 <p className="text-xs text-cocoa/60 mb-2">Use this link to reset your password:</p>
                 <Link to={result.resetUrl.replace(/^.*\/reset-password/, '/reset-password')} className="text-sm text-champagne break-all hover:underline">

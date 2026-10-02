@@ -23,12 +23,6 @@ export default function Navbar() {
   const { products } = useWishlist();
   const navigate = useNavigate();
   const location = useLocation();
-  const isHome = location.pathname === '/';
-  // Only the home page has a full-bleed dark hero for the navbar to blend
-  // into; every other page starts with light content, so the bar should
-  // always render solid/dark-on-light there instead of near-invisible
-  // light-on-light text.
-  const solid = scrolled || !isHome;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -58,7 +52,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        solid ? 'bg-midnight-navy/95 backdrop-blur-md shadow-md border-b border-champagne/10' : 'bg-transparent'
+        scrolled ? 'bg-offwhite/95 backdrop-blur-md shadow-md border-b border-champagne/15' : 'bg-offwhite/0'
       }`}
     >
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 md:h-20 flex items-center justify-between">
@@ -74,7 +68,7 @@ export default function Navbar() {
                 end={l.to === '/'}
                 className={({ isActive }) =>
                   `text-xs tracking-[0.2em] uppercase font-medium transition-colors ${
-                    isActive ? 'text-champagne' : 'text-ivory/85 hover:text-champagne'
+                    isActive ? 'text-champagne' : 'text-cocoa/80 hover:text-champagne'
                   }`
                 }
               >
@@ -88,7 +82,7 @@ export default function Navbar() {
           <button
             aria-label="Search"
             onClick={() => setSearchOpen((s) => !s)}
-            className="hidden sm:flex h-9 w-9 items-center justify-center text-ivory hover:text-champagne transition-colors"
+            className="hidden sm:flex h-9 w-9 items-center justify-center text-cocoa hover:text-champagne transition-colors"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
               <circle cx="11" cy="11" r="7" />
@@ -96,7 +90,7 @@ export default function Navbar() {
             </svg>
           </button>
 
-          <Link to="/wishlist" aria-label="Wishlist" className="relative h-9 w-9 hidden sm:flex items-center justify-center text-ivory hover:text-champagne transition-colors">
+          <Link to="/wishlist" aria-label="Wishlist" className="relative h-9 w-9 hidden sm:flex items-center justify-center text-cocoa hover:text-champagne transition-colors">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
               <path d="M12 20s-7-4.35-9.5-8.5C.7 8 2 4.5 5.5 4.5c2 0 3.5 1 4.5 2.5.7 1 1 1 1 1s.3 0 1-1c1-1.5 2.5-2.5 4.5-2.5 3.5 0 4.8 3.5 3 7C19 15.65 12 20 12 20z" />
             </svg>
@@ -110,7 +104,7 @@ export default function Navbar() {
           <button
             aria-label="Open cart"
             onClick={openDrawer}
-            className="relative h-9 w-9 flex items-center justify-center text-ivory hover:text-champagne transition-colors"
+            className="relative h-9 w-9 flex items-center justify-center text-cocoa hover:text-champagne transition-colors"
           >
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
               <path d="M6 6h15l-1.5 9h-12z" />
@@ -128,25 +122,25 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-3">
             {isAuthenticated ? (
               <div className="relative group">
-                <Link to="/account" className="text-xs tracking-[0.15em] uppercase text-ivory/90 hover:text-champagne">
+                <Link to="/account" className="text-xs tracking-[0.15em] uppercase text-cocoa/90 hover:text-champagne">
                   {user?.name?.split(' ')[0] ?? 'Account'}
                 </Link>
-                <div className="absolute right-0 mt-2 hidden group-hover:flex flex-col bg-deep-navy border border-champagne/20 rounded-sm py-2 min-w-[160px] shadow-lg">
-                  <Link to="/account" className="px-4 py-2 text-xs text-ivory/80 hover:text-champagne uppercase tracking-wide">
+                <div className="absolute right-0 mt-2 hidden group-hover:flex flex-col bg-white border border-cocoa/10 rounded-sm py-2 min-w-[160px] shadow-lg">
+                  <Link to="/account" className="px-4 py-2 text-xs text-cocoa/80 hover:text-champagne uppercase tracking-wide">
                     My Account
                   </Link>
                   {isAdmin && (
-                    <Link to="/admin" className="px-4 py-2 text-xs text-ivory/80 hover:text-champagne uppercase tracking-wide">
+                    <Link to="/admin" className="px-4 py-2 text-xs text-cocoa/80 hover:text-champagne uppercase tracking-wide">
                       Admin
                     </Link>
                   )}
-                  <button onClick={logout} className="text-left px-4 py-2 text-xs text-ivory/80 hover:text-champagne uppercase tracking-wide">
+                  <button onClick={logout} className="text-left px-4 py-2 text-xs text-cocoa/80 hover:text-champagne uppercase tracking-wide">
                     Sign Out
                   </button>
                 </div>
               </div>
             ) : (
-              <Link to="/login" className="text-xs tracking-[0.2em] uppercase text-ivory/90 hover:text-champagne">
+              <Link to="/login" className="text-xs tracking-[0.2em] uppercase text-cocoa/90 hover:text-champagne">
                 Sign In
               </Link>
             )}
@@ -155,7 +149,7 @@ export default function Navbar() {
           <button
             aria-label="Open menu"
             onClick={() => setMobileOpen(true)}
-            className="lg:hidden h-9 w-9 flex items-center justify-center text-ivory"
+            className="lg:hidden h-9 w-9 flex items-center justify-center text-cocoa"
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
               <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
@@ -171,7 +165,7 @@ export default function Navbar() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="border-t border-champagne/15 bg-midnight-navy/98 overflow-hidden"
+            className="border-t border-champagne/15 bg-offwhite/98 overflow-hidden"
           >
             <form onSubmit={submitSearch} className="max-w-7xl mx-auto px-6 py-4 flex items-center gap-3">
               <input
@@ -179,7 +173,7 @@ export default function Navbar() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search fragrances..."
-                className="flex-1 bg-transparent border-b border-champagne/30 text-ivory placeholder:text-ivory/40 py-2 focus:outline-none focus:border-champagne text-sm"
+                className="flex-1 bg-transparent border-b border-cocoa/30 text-cocoa placeholder:text-cocoa/40 py-2 focus:outline-none focus:border-champagne text-sm"
               />
               <button type="submit" className="text-champagne text-xs tracking-widest uppercase">
                 Search
@@ -195,11 +189,11 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-midnight-navy z-[60] flex flex-col lg:hidden"
+            className="fixed inset-0 bg-offwhite z-[60] flex flex-col lg:hidden"
           >
             <div className="flex items-center justify-between h-16 px-4 sm:px-6">
               <img src="/images/logo-mark.svg" alt="NB Classic Scents logo" className="h-9" />
-              <button aria-label="Close menu" onClick={() => setMobileOpen(false)} className="h-9 w-9 flex items-center justify-center text-ivory">
+              <button aria-label="Close menu" onClick={() => setMobileOpen(false)} className="h-9 w-9 flex items-center justify-center text-cocoa">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                   <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
                 </svg>
@@ -210,7 +204,7 @@ export default function Navbar() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search fragrances..."
-                className="w-full bg-transparent border-b border-champagne/30 text-ivory placeholder:text-ivory/40 py-2 focus:outline-none focus:border-champagne text-sm"
+                className="w-full bg-transparent border-b border-cocoa/30 text-cocoa placeholder:text-cocoa/40 py-2 focus:outline-none focus:border-champagne text-sm"
               />
             </form>
             <ul className="flex flex-col gap-1 px-6 mt-2">
@@ -221,28 +215,28 @@ export default function Navbar() {
                     end={l.to === '/'}
                     onClick={() => setMobileOpen(false)}
                     className={({ isActive }) =>
-                      `block py-3 text-lg font-display ${isActive ? 'text-champagne' : 'text-ivory/90'}`
+                      `block py-3 text-lg font-display ${isActive ? 'text-champagne' : 'text-cocoa/90'}`
                     }
                   >
                     {l.label}
                   </NavLink>
                 </li>
               ))}
-              <li className="border-t border-champagne/15 mt-2 pt-2">
-                <Link to="/wishlist" onClick={() => setMobileOpen(false)} className="block py-3 text-lg font-display text-ivory/90">
+              <li className="border-t border-cocoa/10 mt-2 pt-2">
+                <Link to="/wishlist" onClick={() => setMobileOpen(false)} className="block py-3 text-lg font-display text-cocoa/90">
                   Wishlist
                 </Link>
               </li>
               {isAuthenticated ? (
                 <>
                   <li>
-                    <Link to="/account" onClick={() => setMobileOpen(false)} className="block py-3 text-lg font-display text-ivory/90">
+                    <Link to="/account" onClick={() => setMobileOpen(false)} className="block py-3 text-lg font-display text-cocoa/90">
                       My Account
                     </Link>
                   </li>
                   {isAdmin && (
                     <li>
-                      <Link to="/admin" onClick={() => setMobileOpen(false)} className="block py-3 text-lg font-display text-ivory/90">
+                      <Link to="/admin" onClick={() => setMobileOpen(false)} className="block py-3 text-lg font-display text-cocoa/90">
                         Admin
                       </Link>
                     </li>
@@ -253,7 +247,7 @@ export default function Navbar() {
                         logout();
                         setMobileOpen(false);
                       }}
-                      className="block py-3 text-lg font-display text-ivory/90 text-left w-full"
+                      className="block py-3 text-lg font-display text-cocoa/90 text-left w-full"
                     >
                       Sign Out
                     </button>

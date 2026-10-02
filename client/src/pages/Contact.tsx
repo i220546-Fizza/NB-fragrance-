@@ -24,7 +24,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="pt-16 md:pt-20 min-h-[80vh] bg-warm-cream">
+    <div className="pt-16 md:pt-20 min-h-[80vh] bg-offwhite">
       <div className="max-w-3xl mx-auto px-6 py-16">
         <div className="text-center mb-10">
           <span className="eyebrow text-champagne/90">Get In Touch</span>

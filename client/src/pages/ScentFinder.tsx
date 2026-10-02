@@ -34,11 +34,11 @@ export default function ScentFinder() {
 
   return (
     <div className="pt-16 md:pt-20 min-h-[80vh]">
-      <div className="bg-midnight-navy py-12 md:py-16">
+      <div className="bg-offwhite py-12 md:py-16 border-b border-cocoa/10">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <span className="eyebrow text-champagne">Scent Finder</span>
-          <h1 className="section-heading text-ivory mt-3">Discover Your Signature</h1>
-          <p className="text-ivory/60 mt-4 max-w-lg mx-auto">
+          <h1 className="section-heading text-cocoa mt-3">Discover Your Signature</h1>
+          <p className="text-cocoa/60 mt-4 max-w-lg mx-auto">
             A few thoughtful questions stand between you and your next favorite fragrance.
           </p>
         </div>

@@ -37,7 +37,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="pt-16 md:pt-20 min-h-[80vh] flex items-center bg-warm-cream">
+    <div className="pt-16 md:pt-20 min-h-[80vh] flex items-center bg-offwhite">
       <div className="max-w-md w-full mx-auto px-6 py-16">
         <div className="text-center mb-8">
           <img src="/images/logo-mark.svg" alt="NB Classic Scents" className="h-10 mx-auto mb-6" />

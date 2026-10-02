@@ -9,7 +9,7 @@ export default function Wishlist() {
 
   return (
     <div className="pt-16 md:pt-20 min-h-[70vh]">
-      <div className="bg-warm-cream py-10 md:py-14">
+      <div className="bg-offwhite py-10 md:py-14">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <span className="eyebrow text-champagne/90">Saved Fragrances</span>
           <h1 className="section-heading text-cocoa mt-3">Your Wishlist</h1>
