@@ -49,6 +49,11 @@ const errorHandler = (err, req, res, next) => {
     message = err.message;
   }
 
+  // Always print the real error server-side so it's visible in production
+  // logs (morgan request logging is disabled in production, so this is
+  // otherwise the only place a failure gets recorded).
+  console.error(`[${req.method} ${req.originalUrl}] ${statusCode}:`, err);
+
   res.status(statusCode).json({
     success: false,
     message,
