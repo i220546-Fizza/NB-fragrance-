@@ -255,8 +255,8 @@ export default function AdminHomepage() {
       <h1 className="font-display text-2xl md:text-3xl text-cocoa mb-2">Homepage</h1>
       <p className="text-sm text-cocoa/60 mb-8">
         Replace the photo, name and/or description shown for each hero carousel slide on the homepage. For Eclipse,
-        Signature, Midnight and Essence, the same photo also replaces that collection&rsquo;s tile further down the
-        homepage. Sizes, wording elsewhere, and the rest of the site are unaffected.
+        Signature, Midnight and Essence, the same photo and name also update that collection&rsquo;s tile further down
+        the homepage. Sizes, wording elsewhere, and the rest of the site are unaffected.
       </p>
 
       {error && <p className="text-sm text-rose-champagne mb-4">{error}</p>}

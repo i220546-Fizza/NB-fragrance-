@@ -31,25 +31,28 @@ export default function CollectionGrid() {
           <div className="gold-divider mx-auto mt-5" />
         </Reveal>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          {collections.map((c, i) => (
-            <Reveal key={c.name} delay={i * 0.08}>
-              <Link
-                to={`/shop?collection=${encodeURIComponent(c.name)}`}
-                className="group relative flex flex-col items-center bg-white border border-cocoa/10 rounded-sm overflow-hidden aspect-[3/4] px-4 pt-8 pb-6 hover:shadow-gold-sm hover:border-champagne/40 transition-all duration-500"
-              >
-                <img
-                  src={overrides[c.key]?.image ?? c.bottle}
-                  alt={`${c.name} collection bottle`}
-                  className="relative h-3/4 w-auto object-contain transition-transform duration-700 ease-cinematic group-hover:scale-105 group-hover:-translate-y-1"
-                  loading="lazy"
-                />
-                <div className="relative mt-auto text-center">
-                  <h3 className="font-display text-lg text-cocoa">{c.name}</h3>
-                  <p className="text-[11px] text-champagne/90 tracking-wide mt-1">{c.tag}</p>
-                </div>
-              </Link>
-            </Reveal>
-          ))}
+          {collections.map((c, i) => {
+            const displayName = overrides[c.key]?.headline ?? c.name;
+            return (
+              <Reveal key={c.name} delay={i * 0.08}>
+                <Link
+                  to={`/shop?collection=${encodeURIComponent(c.name)}`}
+                  className="group relative flex flex-col items-center bg-white border border-cocoa/10 rounded-sm overflow-hidden aspect-[3/4] px-4 pt-8 pb-6 hover:shadow-gold-sm hover:border-champagne/40 transition-all duration-500"
+                >
+                  <img
+                    src={overrides[c.key]?.image ?? c.bottle}
+                    alt={`${displayName} collection bottle`}
+                    className="relative h-3/4 w-auto object-contain transition-transform duration-700 ease-cinematic group-hover:scale-105 group-hover:-translate-y-1"
+                    loading="lazy"
+                  />
+                  <div className="relative mt-auto text-center">
+                    <h3 className="font-display text-lg text-cocoa">{displayName}</h3>
+                    <p className="text-[11px] text-champagne/90 tracking-wide mt-1">{c.tag}</p>
+                  </div>
+                </Link>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>
